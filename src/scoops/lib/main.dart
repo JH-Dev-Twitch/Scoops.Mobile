@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scoops/home.dart';
 
 void main() {
   runApp(MyApp());
@@ -91,7 +92,12 @@ class _MyHomePageState extends State<MyHomePage> {
               Padding(
                   padding: EdgeInsets.fromLTRB(30, 20, 30, 50),
                   child: RaisedButton(
-                    onPressed: () => null,
+                    onPressed: () => {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ScoopsHomePage();
+                      }))
+                    },
                     color: _primary,
                     textColor: Colors.white,
                     child: Center(
