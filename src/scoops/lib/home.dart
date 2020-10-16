@@ -1,4 +1,29 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        BuildContext,
+        CircleAvatar,
+        Colors,
+        Column,
+        Container,
+        EdgeInsets,
+        FontWeight,
+        Icon,
+        Icons,
+        Key,
+        MainAxisAlignment,
+        NetworkImage,
+        Padding,
+        Row,
+        SafeArea,
+        Scaffold,
+        SizedBox,
+        Spacer,
+        State,
+        StatefulWidget,
+        StatelessWidget,
+        Text,
+        TextStyle,
+        Widget;
 
 class ScoopsHomePage extends StatefulWidget {
   ScoopsHomePage({Key key}) : super(key: key);
