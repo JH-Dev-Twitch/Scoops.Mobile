@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scoops/home.dart';
+import 'package:scoops/ui/home/views/home.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Color _primary = new Color(0xff166FFF);
   Color _secondary = new Color(0xff9FBFF4);
   String _message =
-      "A platform built to help digenerates like Fred and James rate pints.";
+      "A platform built to help degenerates like Fred and James rate pints.";
 
   @override
   Widget build(BuildContext context) {
