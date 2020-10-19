@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:scoops/ui/home/widgets/actionsWidget.dart';
-import 'package:scoops/ui/home/widgets/locationWidget.dart';
+import 'package:scoops/ui/widgets/common/actionsWidget.dart';
+import 'package:scoops/ui/widgets/common/locationWidget.dart';
 
 class ScoopsHomePage extends StatefulWidget {
   ScoopsHomePage({Key key}) : super(key: key);

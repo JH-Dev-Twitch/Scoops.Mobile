@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:scoops/ui/home/views/home.dart';
+import 'package:scoops/ui/views/home.dart';
+import 'package:scoops/ui/views/onboarding/fred.dart';
+import 'package:scoops/ui/views/onboarding/james.dart';
 
 void main() {
   runApp(MyApp());
@@ -74,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white,
             child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
               Padding(
-                  padding: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                  padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
                   child: Text(
                     'Welcome to Scoops',
                     style: TextStyle(
@@ -90,10 +92,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: TextStyle(color: _secondary, fontSize: 20),
                   )),
               Padding(
-                  padding: EdgeInsets.fromLTRB(30, 20, 30, 50),
+                  padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                   child: RaisedButton(
                     onPressed: () => {
                       Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return FredsView();
+                      }))
+                    },
+                    color: _primary,
+                    textColor: Colors.white,
+                    child: Center(
+                        child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              'Fred',
+                              style: TextStyle(fontSize: 20),
+                            ))),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                  )),
+              Padding(
+                  padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                  child: RaisedButton(
+                    onPressed: () => {
+                      Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return ScoopsHomePage();
                       }))
@@ -104,7 +127,28 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Padding(
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              'Next',
+                              'John',
+                              style: TextStyle(fontSize: 20),
+                            ))),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                  )),
+              Padding(
+                  padding: EdgeInsets.fromLTRB(30, 10, 30, 20),
+                  child: RaisedButton(
+                    onPressed: () => {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return JamesView();
+                      }))
+                    },
+                    color: _primary,
+                    textColor: Colors.white,
+                    child: Center(
+                        child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              'James',
                               style: TextStyle(fontSize: 20),
                             ))),
                     shape: RoundedRectangleBorder(
