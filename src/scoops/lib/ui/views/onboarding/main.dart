@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:scoops/ui/views/home.dart';
 import 'package:scoops/ui/views/onboarding/fred.dart';
 import 'package:scoops/ui/views/onboarding/james.dart';
@@ -11,8 +12,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor:
+            new Color(0xff166FFF) //or set color with: Color(0xFF0000FF)
+        ));
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,

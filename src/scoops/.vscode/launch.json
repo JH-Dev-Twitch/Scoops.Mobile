@@ -6,8 +6,10 @@
     "configurations": [
         {
             "name": "scoops",
+            "type": "dart",
             "request": "launch",
-            "type": "dart"
+            "program": "lib/ui/views/onboarding/main.dart"
         }
+        
     ]
 }
