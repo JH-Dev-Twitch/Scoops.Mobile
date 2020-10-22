@@ -22,7 +22,7 @@ class ImageTile extends StatelessWidget {
           ),
           Positioned.fill(
             child: Container(
-              decoration: BoxDecoration(color: Colors.black.withOpacity(0.5)),
+              decoration: BoxDecoration(color: Colors.black.withOpacity(0.3)),
               child: Align(
                 alignment: Alignment.center,
                 child: Center(

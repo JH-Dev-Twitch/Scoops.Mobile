@@ -12,7 +12,7 @@ class LocationWidget extends StatelessWidget {
           padding: EdgeInsets.only(right: 10),
           child: Icon(
             Icons.place,
-            size: 15,
+            size: 17,
             color: Colors.white,
           )),
       Text(
