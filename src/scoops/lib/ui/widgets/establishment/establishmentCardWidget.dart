@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:scoops/models/establishment.dart';
+import 'package:scoops/core/data/models/establishment.dart';
+
 import 'package:scoops/ui/widgets/common/pileWidget.dart';
 import 'package:scoops/ui/widgets/common/ratingWidget.dart';
 
