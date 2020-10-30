@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scoops/models/establishment.dart';
+import 'package:scoops/core/data/models/establishment.dart';
 import 'package:scoops/ui/widgets/common/actionsWidget.dart';
 import 'package:scoops/ui/widgets/common/chipFilterWidget.dart';
 import 'package:scoops/ui/widgets/common/imageTileWidget.dart';

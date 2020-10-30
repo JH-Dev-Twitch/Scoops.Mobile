@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:scoops/core/data/models/user.dart';
+import 'package:scoops/core/infrstructure/app_locator.dart';
+import 'package:scoops/core/infrstructure/router.dart';
+import 'package:scoops/core/services/authentication_service.dart';
 import 'package:scoops/ui/views/home.dart';
 import 'package:scoops/ui/views/onboarding/fred.dart';
 import 'package:scoops/ui/views/onboarding/james.dart';
 
 void main() {
+  initializeServiceLocator();
   runApp(MyApp());
 }
 
@@ -16,16 +22,20 @@ class MyApp extends StatelessWidget {
         statusBarColor:
             new Color(0xff166FFF) //or set color with: Color(0xFF0000FF)
         ));
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(),
-    );
+    return StreamProvider<User>(
+        create: (BuildContext context) =>
+            locator<AuthenticationService>().userController.stream,
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Poppins',
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          initialRoute: 'login',
+          onGenerateRoute: AppRouter.generateRoute,
+        ));
   }
 }
 
