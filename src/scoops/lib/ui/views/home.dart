@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scoops/core/data/models/establishment.dart';
+import 'package:scoops/core/enums/view_state.dart';
+import 'package:scoops/core/viewModels/scoops_home_model.dart';
+import 'package:scoops/ui/views/base_view.dart';
 import 'package:scoops/ui/widgets/common/actionsWidget.dart';
 import 'package:scoops/ui/widgets/common/chipFilterWidget.dart';
 import 'package:scoops/ui/widgets/common/imageTileWidget.dart';
@@ -14,16 +17,6 @@ class ScoopsHomePage extends StatefulWidget {
 }
 
 class _ScoopsHomePageState extends State<ScoopsHomePage> {
-  List<BeverageGroup> groups = [
-    BeverageGroup('Cider',
-        'https://images.immediate.co.uk/production/volatile/sites/22/2019/09/How-to-make-your-own-cider--ceca08e.jpg?quality=90&resize=768%2C574'),
-    BeverageGroup('Lager',
-        'https://www.irishpubsglobal.com/wp-content/uploads/2018/01/Open-Gate-Pure-Brew_bottle-glass-shot-e1516376900661.jpg'),
-    BeverageGroup('Stout',
-        'https://cf.bstatic.com/data/xphoto/1182x887/554/55450596.jpg?size=S'),
-    BeverageGroup('Whiskeys',
-        'https://www.securingindustry.com/assets/97/hero_1152x585.jpg')
-  ];
   List<Filter> filters = [
     new Filter('Pubs', true),
     new Filter('Restaraunts', false),
@@ -49,89 +42,103 @@ class _ScoopsHomePageState extends State<ScoopsHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-            child: new Row(
-      children: <Widget>[
-        Expanded(
-            child: Column(children: [
-          buildNavbar(),
-          ChipFilter(
-            filters: filters,
-            tapped: tapped,
-          ),
-          SizedBox(
-            height: 100,
-            child: new ListView.separated(
-              separatorBuilder: (BuildContext context, int index) => SizedBox(
-                width: 10,
-              ),
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.all(10),
-              itemCount: groups.length,
-              itemBuilder: (BuildContext ctxt, int index) {
-                var group = groups[index];
-                return ImageTile(
-                  text: group.text,
-                  imageUrl: group.imageUrl,
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Featured',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w900),
-                    ),
-                    FlatButton(
-                        padding: EdgeInsets.zero,
-                        textColor: Colors.grey,
-                        onPressed: () => {},
-                        child: Row(
+    return BaseView<ScoopsHomeModel>(
+        onModelReady: (model) => model.getBeverageGroupsAsync(),
+        builder: (context, model, child) => Scaffold(
+                body: SafeArea(
+                    child: new Row(
+              children: <Widget>[
+                Expanded(
+                    child: Column(children: [
+                  child,
+                  model.state == ViewState.Loading
+                      ? CircularProgressIndicator()
+                      : Column(
                           children: [
-                            Text(
-                              'View all',
-                              style: TextStyle(fontSize: 15),
+                            ChipFilter(
+                              filters: filters,
+                              tapped: tapped,
                             ),
-                            Icon(
-                              Icons.chevron_right,
-                              size: 25,
+                            SizedBox(
+                              height: 100,
+                              child: new ListView.separated(
+                                separatorBuilder:
+                                    (BuildContext context, int index) =>
+                                        SizedBox(
+                                  width: 10,
+                                ),
+                                scrollDirection: Axis.horizontal,
+                                padding: EdgeInsets.all(10),
+                                itemCount: model.beverageGroups.length,
+                                itemBuilder: (BuildContext ctxt, int index) {
+                                  var group = model.beverageGroups[index];
+                                  return ImageTile(
+                                    text: group.name,
+                                    imageUrl: group.imageUrl,
+                                  );
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Featured',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.w900),
+                                      ),
+                                      FlatButton(
+                                          padding: EdgeInsets.zero,
+                                          textColor: Colors.grey,
+                                          onPressed: () => {},
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'View all',
+                                                style: TextStyle(fontSize: 15),
+                                              ),
+                                              Icon(
+                                                Icons.chevron_right,
+                                                size: 25,
+                                              )
+                                            ],
+                                          ))
+                                    ],
+                                  ),
+                                  SizedBox(
+                                      height: 300,
+                                      child: ListView.separated(
+                                          separatorBuilder:
+                                              (BuildContext ctx, int index) =>
+                                                  VerticalDivider(
+                                                    width: 10,
+                                                    color: Colors.white,
+                                                  ),
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: 2,
+                                          itemBuilder: (BuildContext builder,
+                                                  int index) =>
+                                              EstablishmentCard(
+                                                establishment: establishment,
+                                                tag: 'Popular',
+                                              ))),
+                                ],
+                              ),
                             )
                           ],
-                        ))
-                  ],
-                ),
-                SizedBox(
-                    height: 300,
-                    child: ListView.separated(
-                        separatorBuilder: (BuildContext ctx, int index) =>
-                            VerticalDivider(
-                              width: 10,
-                              color: Colors.white,
-                            ),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 2,
-                        itemBuilder: (BuildContext builder, int index) =>
-                            EstablishmentCard(
-                              establishment: establishment,
-                              tag: 'Popular',
-                            ))),
+                        )
+                ]))
               ],
-            ),
-          )
-        ]))
-      ],
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    )));
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ))),
+        child: buildNavbar());
   }
 
   Container buildNavbar() {
@@ -151,11 +158,4 @@ class _ScoopsHomePageState extends State<ScoopsHomePage> {
               ],
             )));
   }
-}
-
-class BeverageGroup {
-  String text;
-  String imageUrl;
-
-  BeverageGroup(this.text, this.imageUrl);
 }

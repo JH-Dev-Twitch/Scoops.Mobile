@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -9,8 +10,10 @@ import 'package:scoops/ui/views/home.dart';
 import 'package:scoops/ui/views/onboarding/fred.dart';
 import 'package:scoops/ui/views/onboarding/james.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   initializeServiceLocator();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
         statusBarColor:
             new Color(0xff166FFF) //or set color with: Color(0xFF0000FF)
         ));
-    return StreamProvider<User>(
+    return StreamProvider<AppUser>(
         create: (BuildContext context) =>
             locator<AuthenticationService>().userController.stream,
         child: MaterialApp(
