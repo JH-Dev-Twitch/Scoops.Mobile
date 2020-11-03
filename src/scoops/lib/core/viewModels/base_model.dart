@@ -6,6 +6,11 @@ class BaseModel extends ChangeNotifier {
 
   ViewState get state => _state;
 
+  /// Updates the Models state to one of the predefined states of type [state].
+  ///
+  /// This will trigger all Consumers to update
+  ///
+  /// [state] An enum which represents a Models state => Ready, Loading, Error
   void setState(ViewState state) {
     _state = state;
     notifyListeners();

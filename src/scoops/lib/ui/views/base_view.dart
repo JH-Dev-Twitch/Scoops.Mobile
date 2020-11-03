@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:scoops/core/infrstructure/app_locator.dart';
+import 'package:scoops/core/infrastructure/app_locator.dart';
 import 'package:scoops/core/viewModels/base_model.dart';
 
 class BaseView<T extends BaseModel> extends StatefulWidget {
