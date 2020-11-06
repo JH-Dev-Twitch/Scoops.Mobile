@@ -18,26 +18,43 @@ class LoginView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         model.state == ViewState.Loading
-                            ? CircularProgressIndicator(
-                                backgroundColor: Colors.lightBlue,
-                              )
-                            : FlatButton(
-                                color: Colors.blue,
-                                textColor: Colors.white,
-                                onPressed: () async {
-                                  var loggedIn = await model.login();
-                                  if (loggedIn)
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return ScoopsHomePage();
-                                    }));
-                                },
-                                child: Text('Login')),
+                            ? buildLoadingUI(context)
+                            : buildLoginUI(context, model),
                       ],
                     ),
                   ],
                 ),
               ),
             ));
+  }
+
+  CircularProgressIndicator buildLoadingUI(BuildContext context) {
+    return CircularProgressIndicator(
+      backgroundColor: Theme.of(context).accentColor,
+    );
+  }
+
+  Widget buildLoginUI(BuildContext context, LoginModel model) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        FlatButton.icon(
+            icon: Icon(Icons.login),
+            minWidth: 200,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            color: Theme.of(context).primaryColor,
+            textColor: Colors.white,
+            onPressed: () async {
+              var loggedIn = await model.login();
+              if (loggedIn)
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                  return ScoopsHomePage();
+                }));
+            },
+            label: Text('Login')),
+      ],
+    );
   }
 }
