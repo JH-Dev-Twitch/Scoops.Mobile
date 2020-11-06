@@ -3,23 +3,26 @@ import 'package:flutter/material.dart';
 class ActionsWidget extends StatelessWidget {
   const ActionsWidget({Key key, this.avatarUrl}) : super(key: key);
   final String avatarUrl;
+  static const double spacing = 15;
   @override
   Widget build(BuildContext context) {
     return Row(children: [
       CircleAvatar(
-        backgroundImage: NetworkImage(avatarUrl),
+        backgroundImage: this.avatarUrl == null
+            ? Icon(Icons.supervised_user_circle_rounded)
+            : NetworkImage(avatarUrl),
         maxRadius: 15,
       ),
-      SizedBox(
-        width: 10,
+      const SizedBox(
+        width: spacing,
       ),
       Icon(
         Icons.map,
         size: 25,
         color: Colors.white,
       ),
-      SizedBox(
-        width: 10,
+      const SizedBox(
+        width: spacing,
       ),
       Icon(
         Icons.search,

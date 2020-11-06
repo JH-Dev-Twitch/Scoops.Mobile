@@ -16,7 +16,7 @@ class ChipFilter extends StatelessWidget {
             width: 10,
           ),
           scrollDirection: Axis.horizontal,
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           itemCount: filters.length,
           itemBuilder: (BuildContext ctxt, int index) {
             var filter = filters[index];
@@ -26,7 +26,7 @@ class ChipFilter extends StatelessWidget {
                   backgroundColor: filter.selected
                       ? new Color(0xff166FFF)
                       : Colors.transparent,
-                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
                   label: new Text(
                     filter.title,
                     style: TextStyle(
@@ -45,8 +45,9 @@ class ChipFilter extends StatelessWidget {
 }
 
 class Filter {
+  String id;
   String title;
   bool selected;
 
-  Filter(this.title, this.selected);
+  Filter(this.id, this.title, this.selected);
 }

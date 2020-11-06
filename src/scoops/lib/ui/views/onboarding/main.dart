@@ -1,11 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:scoops/core/constants/app_constants.dart';
+import 'package:scoops/core/data/models/user.dart';
 import 'package:scoops/core/infrastructure/app_locator.dart';
 import 'package:scoops/core/infrastructure/Routing/router.dart';
 import 'package:scoops/core/infrastructure/routing/routes.dart';
-import 'package:scoops/ui/views/home.dart';
+import 'package:scoops/core/services/authentication_service.dart';
+import 'package:scoops/ui/styling/app_style.dart';
 import 'package:scoops/ui/views/login/login.dart';
 import 'package:scoops/ui/views/onboarding/fred.dart';
 import 'package:scoops/ui/views/onboarding/james.dart';
@@ -25,17 +28,17 @@ class MyApp extends StatelessWidget {
         statusBarColor:
             new Color(0xff166FFF) //or set color with: Color(0xFF0000FF)
         ));
-    return MaterialApp(
-      title: AppConstants.app_name,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      initialRoute: Routes.LoginView,
-      onGenerateRoute: AppRouter.generateRoute,
-    );
+    return StreamProvider(
+        initialData: AppUser.unauthorizedUser(),
+        create: (BuildContext context) =>
+            locator<AuthenticationService>().userController.stream,
+        child: MaterialApp(
+          title: AppConstants.app_name,
+          debugShowCheckedModeBanner: false,
+          theme: AppStyles.primaryTheme,
+          initialRoute: Routes.LoginView,
+          onGenerateRoute: AppRouter.generateRoute,
+        ));
   }
 }
 
@@ -47,9 +50,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Color _primary = new Color(0xff166FFF);
-  Color _secondary = new Color(0xff9FBFF4);
-  String _message =
+  final String _message =
       "A platform built to help degenerates like Fred and James rate pints.";
 
   @override
@@ -63,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
               child: Container(
             decoration: BoxDecoration(
-                color: _primary,
+                color: Theme.of(context).primaryColor,
                 borderRadius:
                     BorderRadius.only(bottomRight: Radius.circular(100))),
             child: Column(
@@ -97,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(
                     'Welcome to Scoops',
                     style: TextStyle(
-                        color: _primary,
+                        color: Theme.of(context).primaryColor,
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
                   )),
@@ -106,7 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(
                     _message,
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: _secondary, fontSize: 20),
+                    style: TextStyle(
+                        color: Theme.of(context).accentColor, fontSize: 20),
                   )),
               buildNavButton(context, 'Fred', FredsView()),
               buildNavButton(context, 'John', LoginView()),
@@ -128,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
               return view;
             }))
           },
-          color: _primary,
+          color: Theme.of(context).primaryColor,
           textColor: Colors.white,
           child: Center(
               child: Padding(
