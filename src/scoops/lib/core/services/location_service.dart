@@ -11,7 +11,16 @@ class LocationService {
     final coordinates = new Coordinates(position.latitude, position.longitude);
     var addresses =
         await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    Address first = addresses.first;
-    return "${first.subLocality}, ${first.locality}";
+
+    return addresses.isNotEmpty ? formatAddress(addresses.first) : "N/A";
+  }
+
+  String formatAddress(Address address) {
+    if (address.subLocality == null) {
+      return address.locality;
+    }
+    var fullLocation = "${address.subLocality}, ${address.locality}";
+    var maxLength = 30;
+    return fullLocation.length < maxLength ? fullLocation : address.locality;
   }
 }
