@@ -24,19 +24,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var service = locator<AuthenticationService>();
+    var user = service.getCurrentUser();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor:
             new Color(0xff166FFF) //or set color with: Color(0xFF0000FF)
         ));
     return StreamProvider(
-        initialData: AppUser.unauthorizedUser(),
+        initialData: user,
         create: (BuildContext context) =>
             locator<AuthenticationService>().userController.stream,
         child: MaterialApp(
           title: AppConstants.app_name,
           debugShowCheckedModeBanner: false,
           theme: AppStyles.primaryTheme,
-          initialRoute: Routes.LoginView,
+          initialRoute: user.id != null ? Routes.HomeView : Routes.LoginView,
           onGenerateRoute: AppRouter.generateRoute,
         ));
   }
