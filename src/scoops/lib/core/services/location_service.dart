@@ -16,11 +16,17 @@ class LocationService {
   }
 
   String formatAddress(Address address) {
-    if (address.subLocality == null) {
-      return address.locality;
+    int maxLength = 30;
+    if (address == null) return "N/A";
+    if (address.locality == null && address.subLocality == null)
+      return address.countryName ?? 'N/A';
+    if (address.subLocality == null || address.locality == null)
+      return address.subLocality == null
+          ? address.locality
+          : address.subLocality;
+    if (address.subLocality != null && address.locality != null) {
+      var fullLocation = "${address.subLocality}, ${address.locality}";
+      return fullLocation.length < maxLength ? fullLocation : address.locality;
     }
-    var fullLocation = "${address.subLocality}, ${address.locality}";
-    var maxLength = 30;
-    return fullLocation.length < maxLength ? fullLocation : address.locality;
   }
 }

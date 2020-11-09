@@ -3,15 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:scoops/core/constants/app_constants.dart';
-import 'package:scoops/core/data/models/user.dart';
 import 'package:scoops/core/infrastructure/app_locator.dart';
 import 'package:scoops/core/infrastructure/Routing/router.dart';
 import 'package:scoops/core/infrastructure/routing/routes.dart';
 import 'package:scoops/core/services/authentication_service.dart';
 import 'package:scoops/ui/styling/app_style.dart';
-import 'package:scoops/ui/views/login/login.dart';
-import 'package:scoops/ui/views/onboarding/fred.dart';
-import 'package:scoops/ui/views/onboarding/james.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +34,7 @@ class MyApp extends StatelessWidget {
           title: AppConstants.app_name,
           debugShowCheckedModeBanner: false,
           theme: AppStyles.primaryTheme,
-          initialRoute: user.id != null ? Routes.HomeView : Routes.LoginView,
+          initialRoute: Routes.LoginView,
           onGenerateRoute: AppRouter.generateRoute,
         ));
   }
@@ -112,37 +108,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: TextStyle(
                         color: Theme.of(context).accentColor, fontSize: 20),
                   )),
-              buildNavButton(context, 'Fred', FredsView()),
-              buildNavButton(context, 'John', LoginView()),
-              buildNavButton(context, 'James', JamesView())
             ]),
           ),
         ],
       ),
     );
-  }
-
-  Padding buildNavButton(BuildContext context, String name, Widget view) {
-    return Padding(
-        padding: const EdgeInsets.fromLTRB(30, 10, 30, 20),
-        child: RaisedButton(
-          onPressed: () => {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) {
-              return view;
-            }))
-          },
-          color: Theme.of(context).primaryColor,
-          textColor: Colors.white,
-          child: Center(
-              child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    name,
-                    style: const TextStyle(fontSize: 20),
-                  ))),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        ));
   }
 }

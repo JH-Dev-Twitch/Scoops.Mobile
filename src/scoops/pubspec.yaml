@@ -35,6 +35,7 @@ dependencies:
   cupertino_icons: ^1.0.0
 
 dev_dependencies:
+  dart_dot_reporter: 1.0.3
   flutter_test:
     sdk: flutter
 
