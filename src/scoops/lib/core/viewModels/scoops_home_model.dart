@@ -8,13 +8,16 @@ import 'package:scoops/core/viewModels/base_model.dart';
 import 'package:scoops/ui/widgets/common/chipFilterWidget.dart';
 
 class ScoopsHomeModel extends BaseModel {
+  //Services
   BeverageService _service = locator<BeverageService>();
   EstablishmentService _establishmentService = locator<EstablishmentService>();
   LocationService _locationService = locator<LocationService>();
+  //view properties
   String locationName;
   List<BeverageGroup> beverageGroups;
   List<Filter> establishmentTypes;
 
+  //methods
   Future loadData() async {
     setState(ViewState.Loading);
     this.beverageGroups = await _service.getBeverageGroupsAsync();
