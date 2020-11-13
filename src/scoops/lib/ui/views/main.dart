@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
     var service = locator<AuthenticationService>();
     var user = service.getCurrentUser();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor:
-            new Color(0xff166FFF) //or set color with: Color(0xFF0000FF)
+        statusBarColor: AppStyles
+            .primaryTheme.primaryColor //or set color with: Color(0xFF0000FF)
         ));
     return StreamProvider(
         initialData: user,

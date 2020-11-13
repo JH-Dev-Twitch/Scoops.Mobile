@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scoops/core/constants/app_constants.dart';
 import 'package:scoops/core/data/models/user.dart';
 import 'package:scoops/core/viewModels/user_profile_model.dart';
 import 'package:scoops/ui/styling/app_style.dart';

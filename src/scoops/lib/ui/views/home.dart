@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scoops/core/data/models/establishment.dart';
 import 'package:scoops/core/data/models/user.dart';
 import 'package:scoops/core/enums/view_state.dart';
 import 'package:scoops/core/viewModels/scoops_home_model.dart';
@@ -19,14 +18,6 @@ class ScoopsHomePage extends StatefulWidget {
 }
 
 class _ScoopsHomePageState extends State<ScoopsHomePage> {
-  Establishment establishment = new Establishment(
-      name: 'Dew Drop Inn',
-      imageUrl:
-          'https://connachttribune.ie/wp-content/uploads/2017/06/The-Dew-Drop-Inn1.jpg',
-      establishmentType: 'Pub',
-      amenities: ['Live music', 'Comedy'],
-      rating: EstablishmentRatingSummary(overallRating: 4.8, ratings: 40));
-
   @override
   Widget build(BuildContext context) {
     return BaseView<ScoopsHomeModel>(
@@ -133,7 +124,7 @@ class _ScoopsHomePageState extends State<ScoopsHomePage> {
                                                           establishment: model
                                                                   .featuredEstablishments[
                                                               index],
-                                                          tag: 'Popular',
+                                                          tag: null,
                                                         ))),
                                       ],
                                     ),
