@@ -6,14 +6,14 @@ import 'package:scoops/core/services/base_firestore_service.dart';
 
 class EstablishmentService extends BaseFireStoreService {
   Future<List<EstablishmentType>> loadEstablishmentTypesAsync() async {
-    var groups = await retrieveListAsync<EstablishmentType>(
+    var groups = await getAllFromCollectionAsync<EstablishmentType>(
         DatabaseCollections.establishment_types,
         (doc) => EstablishmentType(id: doc.id, name: doc['name']));
     return groups;
   }
 
   Future<List<Establishment>> loadEstablishmentsAsync() async =>
-      await retrieveListAsync(
+      await getAllFromCollectionAsync<Establishment>(
           DatabaseCollections.establishments, (doc) => mapEstablishment(doc));
 
   Establishment mapEstablishment(QueryDocumentSnapshot doc) => Establishment(
@@ -23,8 +23,8 @@ class EstablishmentService extends BaseFireStoreService {
       rating: mapRating(doc['rating'] as Map),
       locationInfo: mapLocation(doc['location_info'] as Map),
       amenities: mapList(doc['amenities'] as List),
-      establishmentType: doc['type'],
-      socialAccounts: mapSocial(doc['social'] as List));
+      establishmentType: doc['type']);
+  //socialAccounts: mapSocial(doc['social'] as List));
 
   EstablishmentRatingSummary mapRating(Map rating) =>
       EstablishmentRatingSummary(

@@ -24,29 +24,31 @@ class EstablishmentCard extends StatelessWidget {
               children: [
                 Image.network(
                   establishment.imageUrl,
-                  fit: BoxFit.fitHeight,
-                  width: 310,
+                  fit: BoxFit.fitWidth,
+                  width: 312,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.deepPurple,
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(5),
-                            bottomRight: Radius.circular(5))),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        tag,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                    ),
-                  ),
-                )
+                tag == null
+                    ? Text('')
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.deepPurple,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(5),
+                                  bottomRight: Radius.circular(5))),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              tag,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            ),
+                          ),
+                        ),
+                      )
               ],
             ),
             Padding(
