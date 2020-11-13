@@ -89,15 +89,28 @@ class EstablishmentCard extends StatelessWidget {
                     ],
                   ),
                   Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-                      child: Row(children: [
-                        Pill(
-                            text: 'Live Music',
-                            icon: Icons.music_note_rounded,
-                            backgroundColor:
-                                new Color(0xffB4CBF2).withOpacity(0.7),
-                            textColor: new Color(0xff4C95FF)),
-                      ]))
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Pill(
+                                text: establishment.amenities.first,
+                                icon: Icons.music_note_rounded,
+                                backgroundColor:
+                                    new Color(0xffB4CBF2).withOpacity(0.7),
+                                textColor: new Color(0xff4C95FF)),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Pill(
+                                  text: establishment.amenities[1],
+                                  icon: Icons.theater_comedy,
+                                  backgroundColor: Colors.lightGreenAccent,
+                                  textColor: Colors.green[400]),
+                            ),
+                            Text("(+${establishment.amenities.length - 2})")
+                          ]))
                 ],
               ),
             ),

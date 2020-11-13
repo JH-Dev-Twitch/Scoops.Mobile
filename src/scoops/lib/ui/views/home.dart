@@ -123,13 +123,16 @@ class _ScoopsHomePageState extends State<ScoopsHomePage> {
                                                         ),
                                                 scrollDirection:
                                                     Axis.horizontal,
-                                                itemCount: 2,
+                                                itemCount: model
+                                                    .featuredEstablishments
+                                                    .length,
                                                 itemBuilder:
                                                     (BuildContext builder,
                                                             int index) =>
                                                         EstablishmentCard(
-                                                          establishment:
-                                                              establishment,
+                                                          establishment: model
+                                                                  .featuredEstablishments[
+                                                              index],
                                                           tag: 'Popular',
                                                         ))),
                                       ],
