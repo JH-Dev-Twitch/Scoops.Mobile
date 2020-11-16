@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scoops/ui/views/search/search.dart';
 import 'package:scoops/ui/views/user/user_profile.dart';
 
 class ActionsWidget extends StatelessWidget {
@@ -12,7 +13,7 @@ class ActionsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(children: [
       GestureDetector(
-        onTap: () => Navigator.pushReplacement(context,
+        onTap: () => Navigator.push(context,
             MaterialPageRoute(builder: (context) => UserProfileView())),
         child: CircleAvatar(
           backgroundImage: this.avatarUrl == null
@@ -28,10 +29,14 @@ class ActionsWidget extends StatelessWidget {
         color: Colors.white,
       ),
       spacer,
-      Icon(
-        Icons.search,
-        size: 25,
-        color: Colors.white,
+      GestureDetector(
+        onTap: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SearchView())),
+        child: Icon(
+          Icons.tune,
+          size: 25,
+          color: Colors.white,
+        ),
       )
     ]);
   }
