@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:scoops/core/constants/database_collections.dart';
+import 'package:scoops/core/data/models/amenities.dart';
 import 'package:scoops/core/data/models/establishment.dart';
 import 'package:scoops/core/data/models/establishmentType.dart';
 import 'package:scoops/core/services/base_firestore_service.dart';
@@ -44,4 +45,8 @@ class EstablishmentService extends BaseFireStoreService {
   List<SocialAccount> mapSocial(List<dynamic> list) =>
       list.map((e) => mapAccount(e as Map)).toList();
   SocialAccount mapAccount(Map doc) => SocialAccount(doc['name'], doc['url']);
+
+  Future<List<Amenity>> loadAmenitiesAsync() async =>
+      await getAllFromCollectionAsync<Amenity>(DatabaseCollections.amenities,
+          (doc) => Amenity(id: doc.id, name: doc['name']));
 }

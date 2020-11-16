@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:scoops/core/infrastructure/Routing/routes.dart';
+import 'package:scoops/core/infrastructure/routing/routes.dart';
 import 'package:scoops/ui/views/home.dart';
 import 'package:scoops/ui/views/login/login.dart';
+import 'package:scoops/ui/views/search/search.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,6 +13,9 @@ class AppRouter {
 
       case Routes.HomeView:
         return MaterialPageRoute(builder: (_) => ScoopsHomePage());
+
+      case Routes.SearchView:
+        return MaterialPageRoute(builder: (_) => SearchView());
 
       default:
         return MaterialPageRoute(
