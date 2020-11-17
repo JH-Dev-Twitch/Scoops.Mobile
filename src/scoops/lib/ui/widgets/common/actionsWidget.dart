@@ -15,11 +15,14 @@ class ActionsWidget extends StatelessWidget {
       GestureDetector(
         onTap: () => Navigator.push(context,
             MaterialPageRoute(builder: (context) => UserProfileView())),
-        child: CircleAvatar(
-          backgroundImage: this.avatarUrl == null
-              ? Icon(Icons.supervised_user_circle_rounded)
-              : NetworkImage(avatarUrl),
-          maxRadius: 15,
+        child: Hero(
+          tag: 'user_image',
+          child: CircleAvatar(
+            backgroundImage: this.avatarUrl == null
+                ? Icon(Icons.supervised_user_circle_rounded)
+                : NetworkImage(avatarUrl),
+            maxRadius: 15,
+          ),
         ),
       ),
       spacer,
