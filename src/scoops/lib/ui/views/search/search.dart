@@ -33,7 +33,7 @@ class _SearchViewState extends State<SearchView> {
                             ),
                           ),
                           Center(
-                            child: Text(
+                            child: const Text(
                               'Filters',
                               style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
@@ -43,7 +43,21 @@ class _SearchViewState extends State<SearchView> {
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
-                        child: Text(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Establishment Types',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 15),
+                            ),
+                            Wrap(children: buildEstablishmentTypeChips(model))
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
+                        child: const Text(
                           'Amenities',
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 15),
@@ -91,6 +105,26 @@ class _SearchViewState extends State<SearchView> {
     });
   }
 
+  List<Widget> buildEstablishmentTypeChips(SearchModel model) {
+    return new List<Widget>.generate(model.establishmentTypes.length, (index) {
+      Selection amenity = model.establishmentTypes[index];
+      return GestureDetector(
+        onTap: () => model.handleTypeSelection(index),
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Chip(
+                avatar: buildSelectedIcon(amenity.selected),
+                label: Text(
+                  amenity.value,
+                  style: amenity.selected
+                      ? const TextStyle(color: Colors.white)
+                      : null,
+                ),
+                backgroundColor: amenity.selected ? Colors.pink : null)),
+      );
+    });
+  }
+
   Widget buildSelectedIcon(bool selected) => selected
       ? const Icon(
           Icons.check,
@@ -98,4 +132,12 @@ class _SearchViewState extends State<SearchView> {
           size: 18,
         )
       : null;
+
+  List<DropdownMenuItem> buildDropDownItems(List<String> establishmentTypes) =>
+      establishmentTypes
+          .map((e) => DropdownMenuItem(
+                value: e,
+                child: Text(e),
+              ))
+          .toList();
 }

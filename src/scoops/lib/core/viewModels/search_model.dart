@@ -9,12 +9,18 @@ import 'package:scoops/ui/models/Selection.dart';
 
 class SearchModel extends BaseModel {
   List<Selection> amenities = new List<Selection>();
-
+  List<Selection> establishmentTypes = new List<Selection>();
+  String selectedType;
   final EstablishmentService _establishmentService =
       locator<EstablishmentService>();
 
   void handleSelection(int index) {
     amenities[index].selected = !amenities[index].selected;
+    setState(ViewState.Ready);
+  }
+
+  void handleTypeSelection(int index) {
+    establishmentTypes[index].selected = !establishmentTypes[index].selected;
     setState(ViewState.Ready);
   }
 
@@ -25,19 +31,34 @@ class SearchModel extends BaseModel {
       amenities = results
           .map((doc) => Selection(value: doc.name, selected: false))
           .toList();
+      var types = await _establishmentService.loadEstablishmentTypesAsync();
+      establishmentTypes =
+          types.map((e) => Selection(value: e.name, selected: false)).toList();
       setState(ViewState.Ready);
     } catch (e) {
       var test = e;
     }
   }
 
+  void onTypeChanged(String value) {
+    selectedType = value;
+    setState(ViewState.Ready);
+  }
+
   void close(BuildContext context) => Navigator.pop(context);
   void applyFilters(BuildContext context) {
-    var filters = EstablishmentFilters(this
-        .amenities
-        .where((amenity) => amenity.selected)
-        .map((e) => e.value)
-        .toList());
+    var filters = EstablishmentFilters(
+        this
+            .amenities
+            .where((amenity) => amenity.selected)
+            .map((e) => e.value)
+            .toList(),
+        this
+            .establishmentTypes
+            .where((element) => element.selected)
+            .map((e) => e.value)
+            .toList());
+    //todo send to page
     Navigator.pop(context);
   }
 }

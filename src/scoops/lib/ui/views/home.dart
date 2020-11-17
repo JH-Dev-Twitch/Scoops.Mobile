@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scoops/core/data/models/beverageGroup.dart';
+import 'package:scoops/core/data/models/establishment.dart';
+import 'package:scoops/core/data/models/establishmentType.dart';
 import 'package:scoops/core/data/models/user.dart';
 import 'package:scoops/core/enums/view_state.dart';
 import 'package:scoops/core/viewModels/scoops_home_model.dart';
 import 'package:scoops/ui/views/base_view.dart';
 import 'package:scoops/ui/widgets/common/actionsWidget.dart';
 import 'package:scoops/ui/widgets/common/chipFilterWidget.dart';
-import 'package:scoops/ui/widgets/common/imageTileWidget.dart';
 import 'package:scoops/ui/widgets/common/locationWidget.dart';
 import 'package:scoops/ui/widgets/establishment/establishmentCardWidget.dart';
 
@@ -26,6 +28,7 @@ class _ScoopsHomePageState extends State<ScoopsHomePage> {
           body: SafeArea(
               child: model.state == ViewState.Loading
                   ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Center(child: CircularProgressIndicator()),
                       ],
@@ -42,28 +45,27 @@ class _ScoopsHomePageState extends State<ScoopsHomePage> {
                             children: [
                               Column(
                                 children: [
-                                  ChipFilter(
-                                    filters: model.establishmentTypes,
-                                    tapped: model.tapped,
-                                  ),
+                                  // ChipFilter(
+                                  //   filters: model.establishmentTypes,
+                                  //   tapped: model.tapped,
+                                  // ),
                                   SizedBox(
-                                    height: 100,
+                                    height: 120,
                                     child: new ListView.separated(
                                       separatorBuilder:
                                           (BuildContext context, int index) =>
                                               SizedBox(
-                                        width: 10,
+                                        width: 30,
                                       ),
                                       scrollDirection: Axis.horizontal,
                                       padding: const EdgeInsets.all(10),
-                                      itemCount: model.beverageGroups.length,
+                                      itemCount:
+                                          model.establishmentTypes.length,
                                       itemBuilder:
                                           (BuildContext ctxt, int index) {
-                                        var group = model.beverageGroups[index];
-                                        return ImageTile(
-                                          text: group.name,
-                                          imageUrl: group.imageUrl,
-                                        );
+                                        var type =
+                                            model.establishmentTypes[index];
+                                        return buildEstablishmentCard(type);
                                       },
                                     ),
                                   ),
@@ -155,5 +157,63 @@ class _ScoopsHomePageState extends State<ScoopsHomePage> {
                     : ActionsWidget(avatarUrl: imageUrl)
               ],
             )));
+  }
+
+  Widget buildEstablishmentCard(EstablishmentType type) => Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+                color: buildBackgroundColor(type.name),
+                borderRadius: BorderRadius.all(Radius.circular(18))),
+            child: Icon(
+              buildIcon(type.name),
+              color: Colors.white,
+              size: 20,
+            ),
+          ),
+          Text(
+            type.name,
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          )
+        ],
+      );
+
+  IconData buildIcon(String name) {
+    switch (name) {
+      case "Hotel":
+        return Icons.hotel;
+      case "Pub":
+        return Icons.local_drink_rounded;
+      case "Gin Bar":
+        return Icons.nightlife;
+      case "Nightclub":
+        return Icons.nightlife;
+      case "Brewery":
+        return Icons.restaurant_rounded;
+      case "Restaraunt":
+        return Icons.restaurant_rounded;
+      default:
+    }
+  }
+
+  Color buildBackgroundColor(String name) {
+    switch (name) {
+      case "Hotel":
+        return Colors.blueAccent;
+      case "Pub":
+        return Colors.green;
+      case "Gin Bar":
+        return Colors.pinkAccent;
+      case "Nightclub":
+        return Colors.purpleAccent;
+      case "Brewery":
+        return Colors.orangeAccent;
+      case "Restaraunt":
+        return Colors.redAccent;
+      default:
+    }
   }
 }
