@@ -7,6 +7,6 @@ class AppStyles {
       primaryColor: primary,
       primaryColorLight: primary,
       accentColor: new Color(0xff9FBFF4),
-      primaryColorDark: primary,
+      primaryColorDark: Colors.black54,
       fontFamily: primary_font);
 }

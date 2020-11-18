@@ -96,8 +96,8 @@ class UserProfileView extends StatelessWidget {
                   value: true,
                   textOn: 'Light',
                   textOff: 'Dark',
-                  colorOn: Colors.blueGrey,
-                  colorOff: Colors.blueGrey,
+                  colorOn: Colors.green,
+                  colorOff: Theme.of(context).primaryColorDark,
                   textSize: 14,
                   animationDuration: Duration(milliseconds: 500),
                   onChanged: (bool state) => null,
@@ -136,28 +136,32 @@ class UserProfileView extends StatelessWidget {
 
   Widget buildActionButton(String text, IconData icon, Color iconColor,
           Color iconBackgroundColor, Function tapped) =>
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: iconBackgroundColor),
-              child: Icon(
-                icon,
-                color: iconColor,
+      GestureDetector(
+        onTap: tapped,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: iconBackgroundColor),
+                child: Icon(
+                  icon,
+                  color: iconColor,
+                ),
+                padding: EdgeInsets.all(15),
               ),
-              padding: EdgeInsets.all(15),
-            ),
-            Center(
-                child: Text(
-              text,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            )),
-            Icon(Icons.chevron_right_rounded, color: Colors.black, size: 30)
-          ],
+              Center(
+                  child: Text(
+                text,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              )),
+              Icon(Icons.chevron_right_rounded, color: Colors.black, size: 30)
+            ],
+          ),
         ),
       );
 }
