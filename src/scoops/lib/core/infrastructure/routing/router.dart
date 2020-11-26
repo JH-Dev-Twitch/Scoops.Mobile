@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scoops/core/infrastructure/routing/routes.dart';
+import 'package:scoops/ui/views/account/user_preferences.dart';
 import 'package:scoops/ui/views/home.dart';
 import 'package:scoops/ui/views/login/login.dart';
 import 'package:scoops/ui/views/search/search.dart';
@@ -16,6 +17,9 @@ class AppRouter {
 
       case Routes.SearchView:
         return MaterialPageRoute(builder: (_) => SearchView());
+
+      case Routes.UserPreferences:
+        return MaterialPageRoute(builder: (_) => UserPreferencesView());
 
       default:
         return MaterialPageRoute(

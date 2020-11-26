@@ -2,11 +2,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scoops/core/data/models/user.dart';
+import 'package:scoops/core/infrastructure/routing/routes.dart';
 import 'package:scoops/core/viewModels/user_profile_model.dart';
 import 'package:scoops/ui/styling/app_style.dart';
 import 'package:scoops/ui/views/base_view.dart';
 import 'package:scoops/ui/views/login/login.dart';
-import 'package:scoops/ui/widgets/common/custom_switch.dart';
+import 'package:scoops/ui/widgets/common/plain_app_bar.dart';
 
 class UserProfileView extends StatelessWidget {
   const UserProfileView({Key key}) : super(key: key);
@@ -49,7 +50,8 @@ class UserProfileView extends StatelessWidget {
                                 Icons.bookmark_border_rounded,
                                 Colors.purple[600],
                                 Colors.purple[50],
-                                null),
+                                () => Navigator.pushNamed(
+                                    context, Routes.UserPreferences)),
                             buildActionButton('Ratings', Icons.star_rounded,
                                 Colors.yellow[600], Colors.yellow[50], null),
                             Spacer(),
@@ -70,42 +72,7 @@ class UserProfileView extends StatelessWidget {
                 )),
               ),
             ),
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Stack(
-            children: [
-              GestureDetector(
-                child: const Icon(
-                  Icons.close_rounded,
-                  color: Colors.white,
-                ),
-                onTap: () => Navigator.pop(context),
-              ),
-              Center(
-                child: const Text(
-                  'Profile',
-                  style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: AnimatedIconSwitch(
-                  value: true,
-                  textOn: 'Light',
-                  textOff: 'Dark',
-                  colorOn: Colors.green,
-                  colorOff: Theme.of(context).primaryColorDark,
-                  textSize: 14,
-                  animationDuration: Duration(milliseconds: 500),
-                  onChanged: (bool state) => null,
-                ),
-              )
-            ],
-          ),
-        ));
+        child: PlainAppBar.buildAppBar(context, title: 'User Profile'));
   }
 
   Widget buildUserDetails(BuildContext context) {
