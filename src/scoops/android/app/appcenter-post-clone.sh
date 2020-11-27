@@ -30,6 +30,8 @@ flutter doctor
 
 echo "Installed flutter to `pwd`/flutter"
 
+dart run tool/configuration_setup.dart
+
 # build APK
 # if you get "Execution failed for task ':app:lintVitalRelease'." error, uncomment next two lines
 # flutter build apk --debug
