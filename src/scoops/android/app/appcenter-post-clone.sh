@@ -6,6 +6,8 @@
 
 GOOGLE_JSON_FILE=$APPCENTER_SOURCE_DIRECTORY/android/app/google-services.json
 
+echo $GOOGLE_JSON_FILE
+
 if [ -f "$GOOGLE_JSON_FILE" ]
 then 
     echo "$GOOGLE_JSON" > "$GOOGLE_JSON_FILE"
