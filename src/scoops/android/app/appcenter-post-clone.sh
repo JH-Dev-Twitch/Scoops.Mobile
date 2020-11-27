@@ -6,17 +6,25 @@ cd ..
 
 GOOGLE_JSON_FILE=$APPCENTER_SOURCE_DIRECTORY/android/app/google-services.json
 
-echo $GOOGLE_JSON_FILE
+echo "$GOOGLE_JSON" > $GOOGLE_JSON_FILE
 
-if [ -e "$GOOGLE_JSON_FILE" ]
-then
-    echo "Updating Google Json"
-    echo "$GOOGLE_JSON" > $GOOGLE_JSON_FILE
-    sed -i -e 's/\\"/'\"'/g' $GOOGLE_JSON_FILE
+google_json_content = cat $GOOGLE_JSON_FILE;
 
-    echo "File content:"
-    cat $GOOGLE_JSON_FILE
-fi
+echo google_json_content
+
+# if [ -e "$GOOGLE_JSON_FILE" ]
+# then
+#     echo "Updating Google Json"
+#     echo "$GOOGLE_JSON" > $GOOGLE_JSON_FILE
+#     sed -i -e 's/\\"/'\"'/g' $GOOGLE_JSON_FILE
+
+#     echo "File content:"
+#     cat $GOOGLE_JSON_FILE
+# else
+
+#     echo "Creating Google Json"
+
+# fi
 
 
 
@@ -41,12 +49,14 @@ dart run tool/configuration_setup.dart
 
 echo "Config File:"
 
-cat lib/core/infrastructure/env.dart
+config_content = cat lib/core/infrastructure/env.dart;
+
+echo config_content
 # build APK
 # if you get "Execution failed for task ':app:lintVitalRelease'." error, uncomment next two lines
 # flutter build apk --debug
 # flutter build apk --profile
-echo 'Build APK'
+
 flutter build apk --release
 
 # if you need build bundle (AAB) in addition to your APK, uncomment line below and last line of this script.
