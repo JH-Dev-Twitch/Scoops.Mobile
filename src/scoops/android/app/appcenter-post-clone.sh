@@ -14,7 +14,7 @@ and no NSA can stop me from doing it.
 and now I'm just a tiny little book that was read
 by everyone....
 ENDOFFILE
-echo "$GOOGLE_JSON" > ;
+
 
 google_json_content = cat $GOOGLE_JSON_FILE;
 
