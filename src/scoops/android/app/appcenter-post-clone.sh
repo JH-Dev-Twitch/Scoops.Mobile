@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #Place this script in project/android/app/
 
-cd ..
+
 
 
 GOOGLE_JSON_FILE=$APPCENTER_SOURCE_DIRECTORY/android/app/google-services.json
@@ -9,6 +9,8 @@ GOOGLE_JSON_FILE=$APPCENTER_SOURCE_DIRECTORY/android/app/google-services.json
 if [ -f "$GOOGLE_JSON_FILE" ]
 then 
     echo "$GOOGLE_JSON" > "$GOOGLE_JSON_FILE"
+else
+    echo "Warning !!!  file not found"
 fi
 
 
