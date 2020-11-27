@@ -6,7 +6,7 @@ cd ..
 
 GOOGLE_JSON_FILE=$APPCENTER_SOURCE_DIRECTORY/android/app/google-services.json
 
-echo "$GOOGLE_JSON" > $GOOGLE_JSON_FILE
+echo "$GOOGLE_JSON" > $GOOGLE_JSON_FILE;
 
 google_json_content = cat $GOOGLE_JSON_FILE;
 
