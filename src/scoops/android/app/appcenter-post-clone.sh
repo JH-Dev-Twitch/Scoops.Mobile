@@ -37,6 +37,7 @@ set -e
 set -x
 
 cd ..
+cd ..
 git clone -b beta https://github.com/flutter/flutter.git
 export PATH=`pwd`/flutter/bin:$PATH
 
