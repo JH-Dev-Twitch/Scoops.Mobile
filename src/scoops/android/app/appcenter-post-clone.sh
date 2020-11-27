@@ -6,14 +6,10 @@ cd ..
 
 GOOGLE_JSON_FILE=$APPCENTER_SOURCE_DIRECTORY/android/app/google-services.json
 
-cat > $GOOGLE_JSON_FILE << ENDOFFILE
-My File, My Choice
-I have the right to write what I want in this file
-and no NSA can stop me from doing it.
-    I had privacy before NSA and the whole internet
-and now I'm just a tiny little book that was read
-by everyone....
-ENDOFFILE
+if [ -f "$GOOGLE_JSON_FILE" ]
+then 
+    echo "$GOOGLE_JSON" > "$GOOGLE_JSON_FILE"
+fi
 
 
 google_json_content = cat $GOOGLE_JSON_FILE;
