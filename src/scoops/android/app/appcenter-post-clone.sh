@@ -4,7 +4,7 @@
 
 
 
-GOOGLE_JSON_FILE=$APPCENTER_SOURCE_DIRECTORY/android/app/google-services.json
+GOOGLE_JSON_FILE=$APPCENTER_SOURCE_DIRECTORY/src/scoops/android/android/app/google-services.json
 
 echo $GOOGLE_JSON_FILE
 
