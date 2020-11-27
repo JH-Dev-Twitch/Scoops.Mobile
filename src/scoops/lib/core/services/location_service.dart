@@ -28,5 +28,6 @@ class LocationService {
       var fullLocation = "${address.subLocality}, ${address.locality}";
       return fullLocation.length < maxLength ? fullLocation : address.locality;
     }
+    return "N/A";
   }
 }
