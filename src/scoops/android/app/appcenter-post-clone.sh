@@ -6,7 +6,15 @@ cd ..
 
 GOOGLE_JSON_FILE=$APPCENTER_SOURCE_DIRECTORY/android/app/google-services.json
 
-echo "$GOOGLE_JSON" > $GOOGLE_JSON_FILE;
+cat > $GOOGLE_JSON_FILE << ENDOFFILE
+My File, My Choice
+I have the right to write what I want in this file
+and no NSA can stop me from doing it.
+    I had privacy before NSA and the whole internet
+and now I'm just a tiny little book that was read
+by everyone....
+ENDOFFILE
+echo "$GOOGLE_JSON" > ;
 
 google_json_content = cat $GOOGLE_JSON_FILE;
 
@@ -49,9 +57,9 @@ dart run tool/configuration_setup.dart
 
 echo "Config File:"
 
-config_content = cat lib/core/infrastructure/env.dart;
+echo "$(<lib/core/infrastructure/env.dart )" 
 
-echo config_content
+
 # build APK
 # if you get "Execution failed for task ':app:lintVitalRelease'." error, uncomment next two lines
 # flutter build apk --debug
