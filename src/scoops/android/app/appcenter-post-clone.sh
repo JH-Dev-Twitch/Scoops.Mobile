@@ -8,17 +8,11 @@ GOOGLE_JSON_FILE=$APPCENTER_SOURCE_DIRECTORY/src/scoops/android/android/app/goog
 
 echo $GOOGLE_JSON_FILE
 
-if [ -f "$GOOGLE_JSON_FILE" ]
-then 
-    echo "$GOOGLE_JSON" > "$GOOGLE_JSON_FILE"
-else
-    echo "Warning !!!  file not found"
-fi
+
+echo "$GOOGLE_JSON" > "$GOOGLE_JSON_FILE"
 
 
-google_json_content = cat $GOOGLE_JSON_FILE;
-
-echo google_json_content
+echo "$(<$GOOGLE_JSON_FILE )" 
 
 # if [ -e "$GOOGLE_JSON_FILE" ]
 # then
