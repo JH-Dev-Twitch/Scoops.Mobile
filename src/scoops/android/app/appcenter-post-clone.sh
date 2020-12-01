@@ -48,7 +48,7 @@ echo "Installed flutter to `pwd`/flutter"
 
 
 echo "Run Configuration Task"
-dart run src/scoops/tool/configuration_setup.dart
+dart run $APPCENTER_SOURCE_DIRECTORY/src/scoops/tool/configuration_setup.dart
 
 echo "Config File:"
 
