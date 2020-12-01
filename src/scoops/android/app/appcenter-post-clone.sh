@@ -4,6 +4,11 @@ GOOGLE_JSON_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/android/app/google-
 CONFIG_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/tool/configuration_setup.dart
 MAIN_DART_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/lib/ui/views/main.dart
 
+echo "Install JQ..."
+
+brew install jq
+
+
 echo $GOOGLE_JSON_FILE_PATH
 
 echo $GOOGLE_JSON
@@ -13,7 +18,7 @@ touch $GOOGLE_JSON_FILE_PATH
 echo "Created Google File!"
 echo "Updating Content..."
 
-echo $GOOGLE_JSON > $GOOGLE_JSON_FILE_PATH
+echo $GOOGLE_JSON | jq '.' $GOOGLE_JSON_FILE_PATH
 
 
 echo "$(<$GOOGLE_JSON_FILE_PATH )" 
