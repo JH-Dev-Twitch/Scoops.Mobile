@@ -12,12 +12,11 @@ echo "Created Google File!!"
 
 echo "Updating Content..."
 
-echo $GOOGLE_JSON | jq -r '.' > $GOOGLE_JSON_FILE_PATH
+echo jq -n "$GOOGLE_JSON" | jq '.' > $GOOGLE_JSON_FILE_PATH
 
 echo "$(<$GOOGLE_JSON_FILE_PATH )" 
 
 echo "Google Service Json Updated!!"
-
 
 # fail if any command fails
 set -e
