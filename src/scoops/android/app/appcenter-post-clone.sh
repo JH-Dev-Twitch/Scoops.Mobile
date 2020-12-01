@@ -4,19 +4,15 @@ GOOGLE_JSON_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/android/app/google-
 CONFIG_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/tool/configuration_setup.dart
 MAIN_DART_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/lib/ui/views/main.dart
 
-echo "Installing JQ..."
-
-brew install jq
-
-echo "JQ Installed!!"
-
 echo "Creating Google File..."
+
 touch $GOOGLE_JSON_FILE_PATH
+
 echo "Created Google File!!"
+
 echo "Updating Content..."
 
-echo $GOOGLE_JSON | jq '.' > $GOOGLE_JSON_FILE_PATH
-
+echo $GOOGLE_JSON | jq -r '.' > $GOOGLE_JSON_FILE_PATH
 
 echo "$(<$GOOGLE_JSON_FILE_PATH )" 
 
@@ -30,6 +26,7 @@ set -x
 
 cd ..
 cd ..
+
 git clone -b beta https://github.com/flutter/flutter.git
 export PATH=`pwd`/flutter/bin:$PATH
 
@@ -38,13 +35,11 @@ flutter doctor
 
 echo "Installed flutter to `pwd`/flutter"
 
-
 echo "Starting Flutter Configuration Task..."
+
 dart run $CONFIG_FILE_PATH
 
 echo "Flutter Configuration Task Completed!!"
-
-
 
 echo "Starting Release Apk Build..."
 # build APK
