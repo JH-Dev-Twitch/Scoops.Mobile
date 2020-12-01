@@ -3,13 +3,19 @@
 GOOGLE_JSON_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/android/app/google-services.json
 CONFIG_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/tool/configuration_setup.dart
 MAIN_DART_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/lib/ui/views/main.dart
+
 echo $GOOGLE_JSON_FILE_PATH
 
+echo $GOOGLE_JSON
+
+echo "Creating Google File..."
 touch $GOOGLE_JSON_FILE_PATH
+echo "Created Google File!"
+echo "Updating Content..."
 
-echo "$GOOGLE_JSON" > "$GOOGLE_JSON_FILE_PATH"
+echo $GOOGLE_JSON > $GOOGLE_JSON_FILE_PATH
 
-echo "Created Google File:"
+
 echo "$(<$GOOGLE_JSON_FILE_PATH )" 
 
 
