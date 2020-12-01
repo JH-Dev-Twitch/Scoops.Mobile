@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #Place this script in project/android/app/
-GOOGLE_JSON_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/android/android/app/google-services.json
+GOOGLE_JSON_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/android/app/google-services.json
 CONFIG_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/tool/configuration_setup.dart
 MAIN_DART_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/lib/ui/views/main.dart
 echo $GOOGLE_JSON_FILE_PATH
