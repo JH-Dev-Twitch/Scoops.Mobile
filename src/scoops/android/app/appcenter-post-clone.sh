@@ -8,15 +8,13 @@ echo "Creating Google File..."
 
 touch $GOOGLE_JSON_FILE_PATH
 
-echo "Created Google File!!"
+echo "Created Google File at $GOOGLE_JSON_FILE_PATH"
 
 echo "Updating Content..."
 
 echo $GOOGLE_JSON
 
-echo $GOOGLE_JSON | jq -r '.' > $GOOGLE_JSON_FILE_PATH
-
-echo "$(<$GOOGLE_JSON_FILE_PATH )" 
+echo ${$GOOGLE_JSON//'\'/} > $GOOGLE_JSON_FILE_PATH
 
 echo "Google Service Json Updated!!"
 
