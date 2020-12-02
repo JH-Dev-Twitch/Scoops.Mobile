@@ -18,6 +18,10 @@ echo ${GOOGLE_JSON//'\'/} > $GOOGLE_JSON_FILE_PATH
 
 echo "Google Service Json Updated!!"
 
+cat $GOOGLE_JSON_FILE_PATH
+
+echo "File displayed!"
+
 # fail if any command fails
 set -e
 # debug log
