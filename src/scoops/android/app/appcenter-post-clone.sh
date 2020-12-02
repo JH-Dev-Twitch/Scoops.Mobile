@@ -14,7 +14,7 @@ echo "Updating Content..."
 
 echo $GOOGLE_JSON
 
-echo ${$GOOGLE_JSON//'\'/} > $GOOGLE_JSON_FILE_PATH
+echo ${GOOGLE_JSON//'\'/} > $GOOGLE_JSON_FILE_PATH
 
 echo "Google Service Json Updated!!"
 
