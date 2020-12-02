@@ -53,6 +53,7 @@ class UserPreferencesModel extends BaseModel {
             value: e.name, selected: prefs.beverageGroups.contains(e.name)))
         .toList();
     setState(ViewState.Ready);
+    await trackEvent("User Preferences");
   }
 
   Future<bool> savePreferences() async {

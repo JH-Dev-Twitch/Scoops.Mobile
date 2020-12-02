@@ -1,5 +1,3 @@
-import 'package:scoops/core/services/user_account_service.dart';
-
 class Routes {
   static const LoginView = 'login';
   static const HomeView = 'home';

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scoops/core/data/models/beverageGroup.dart';
-import 'package:scoops/core/data/models/establishment.dart';
 import 'package:scoops/core/data/models/establishmentType.dart';
 import 'package:scoops/core/data/models/user.dart';
 import 'package:scoops/core/enums/view_state.dart';
 import 'package:scoops/core/viewModels/scoops_home_model.dart';
 import 'package:scoops/ui/views/base_view.dart';
 import 'package:scoops/ui/widgets/common/actionsWidget.dart';
-import 'package:scoops/ui/widgets/common/chipFilterWidget.dart';
 import 'package:scoops/ui/widgets/common/locationWidget.dart';
 import 'package:scoops/ui/widgets/establishment/establishmentCardWidget.dart';
 

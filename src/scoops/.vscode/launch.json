@@ -8,7 +8,8 @@
             "name": "scoops",
             "type": "dart",
             "request": "launch",
-            "program": "lib/ui/views/main.dart"
+            "program": "lib/main.dart",
+            "preLaunchTask": "buildConfig"
         }
         
     ]

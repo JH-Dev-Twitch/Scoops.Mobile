@@ -1,16 +1,30 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_appcenter_bundle/flutter_appcenter_bundle.dart';
 import 'package:provider/provider.dart';
 import 'package:scoops/core/constants/app_constants.dart';
 import 'package:scoops/core/infrastructure/app_locator.dart';
 import 'package:scoops/core/infrastructure/Routing/router.dart';
+import 'package:scoops/core/infrastructure/env.dart';
 import 'package:scoops/core/infrastructure/routing/routes.dart';
 import 'package:scoops/core/services/authentication_service.dart';
 import 'package:scoops/ui/styling/app_style.dart';
 
+import 'package:flutter/foundation.dart';
+
+Future initAppCenter() async {
+  await AppCenter.startAsync(
+    appSecretAndroid: env['APP_CENTER_ANDROID_SECRET'],
+    appSecretIOS: "",
+    enableDistribute: false,
+  );
+  await AppCenter.configureDistributeDebugAsync(enabled: false);
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initAppCenter();
   initializeServiceLocator();
   await Firebase.initializeApp();
   runApp(MyApp());

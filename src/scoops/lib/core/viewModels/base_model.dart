@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:scoops/core/enums/view_state.dart';
+import 'package:scoops/core/infrastructure/app_locator.dart';
+import 'package:scoops/core/infrastructure/logging/logging_service.dart';
 
 class BaseModel extends ChangeNotifier {
+  final _loggingService = locator<LoggingService>();
   ViewState _state = ViewState.Ready;
 
   ViewState get state => _state;
@@ -15,4 +18,7 @@ class BaseModel extends ChangeNotifier {
     _state = state;
     notifyListeners();
   }
+
+  Future trackEvent(String event) async =>
+      _loggingService.trackEventAsync(event);
 }
