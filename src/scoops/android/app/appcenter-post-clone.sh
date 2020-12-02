@@ -50,7 +50,7 @@ echo "Starting Release APK Build..."
 # flutter build apk --debug
 # flutter build apk --profile
 
-flutter build apk --release -t $MAIN_DART_FILE_PATH --build-number $APPCENTER_BUILD_ID
+flutter build apk --release -t $MAIN_DART_FILE_PATH
 
 # if you need build bundle (AAB) in addition to your APK, uncomment line below and last line of this script.
 #flutter build appbundle --release --build-number $APPCENTER_BUILD_ID
