@@ -12,9 +12,11 @@ echo "Created Google File!!"
 
 echo "Updating Content..."
 
-echo $GOOGLE_JSON
+JSON_VALUE= echo -e "$GOOGLE_JSON"
 
-echo jq -n "$GOOGLE_JSON" | jq '.' > $GOOGLE_JSON_FILE_PATH
+echo JSON_VALUE
+
+echo "$JSON_VALUE" | jq -r '.' > $GOOGLE_JSON_FILE_PATH
 
 echo "$(<$GOOGLE_JSON_FILE_PATH )" 
 
