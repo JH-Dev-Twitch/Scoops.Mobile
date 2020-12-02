@@ -4,23 +4,18 @@ GOOGLE_JSON_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/android/app/google-
 CONFIG_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/tool/configuration_setup.dart
 MAIN_DART_FILE_PATH=$APPCENTER_SOURCE_DIRECTORY/src/scoops/lib/main.dart
 
-echo "Creating Google File..."
+echo "------------Creating Google File...------------"
 
 touch $GOOGLE_JSON_FILE_PATH
 
-echo "Created Google File at $GOOGLE_JSON_FILE_PATH"
+echo "------------Created Google File at $GOOGLE_JSON_FILE_PATH------------"
 
-echo "Updating Content..."
-
-echo $GOOGLE_JSON
+echo "------------Updating Google JSON Content...------------"
 
 echo ${GOOGLE_JSON//'\'/} > $GOOGLE_JSON_FILE_PATH
 
-echo "Google Service Json Updated!!"
+echo "------------Google Service Json Updated!!------------"
 
-cat $GOOGLE_JSON_FILE_PATH
-
-echo "File displayed!"
 
 # fail if any command fails
 set -e
@@ -36,21 +31,21 @@ export PATH=`pwd`/flutter/bin:$PATH
 flutter channel stable
 flutter doctor
 
-echo "Installed flutter to `pwd`/flutter"
+echo "------------Installed flutter to `pwd`/flutter------------"
 
-echo "Starting Flutter Configuration Task..."
+echo "------------Starting Flutter Configuration Task...------------"
 
 dart run $CONFIG_FILE_PATH
 
-echo "Flutter Configuration Task Completed!!"
+echo "------------Flutter Configuration Task Completed!!------------"
 
-echo "Starting Release APK Build..."
+echo "------------Starting Release APK Build...------------"
 # build APK
 # if you get "Execution failed for task ':app:lintVitalRelease'." error, uncomment next two lines
 # flutter build apk --debug
 # flutter build apk --profile
 
-flutter build apk --release -t $MAIN_DART_FILE_PATH
+flutter build apk --release --build-number $APPCENTER_BUILD_ID
 
 # if you need build bundle (AAB) in addition to your APK, uncomment line below and last line of this script.
 #flutter build appbundle --release --build-number $APPCENTER_BUILD_ID
@@ -61,4 +56,4 @@ mkdir -p android/app/build/outputs/apk/; mv build/app/outputs/apk/release/app-re
 # copy the AAB where AppCenter will find it
 #mkdir -p android/app/build/outputs/bundle/; mv build/app/outputs/bundle/release/app-release.aab $_
 
-echo "Release APK Build Completed"
+echo "------------Release APK Build Completed------------"
