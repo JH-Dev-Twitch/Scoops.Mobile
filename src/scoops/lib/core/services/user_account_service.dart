@@ -8,7 +8,15 @@ class UserAccountService {
         .collection(DatabaseCollections.userProfiles)
         .doc(FirebaseAuth.instance.currentUser.uid)
         .get();
-    return doc != null ? mapToPreferences(doc) : null;
+    return doc.exists ? mapToPreferences(doc) : null;
+  }
+
+  Future createEmptyPrefs() async {
+    var _emptyPrefs = UserPreferences.empty();
+    await FirebaseFirestore.instance
+        .collection(DatabaseCollections.userProfiles)
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .set(_emptyPrefs.convertToDocMap());
   }
 
   UserPreferences mapToPreferences(DocumentSnapshot doc) {
@@ -22,14 +30,16 @@ class UserAccountService {
             establishmentTypes.map((e) => e as String).toList());
   }
 
-  Future<bool> savePreferences(Map<String, List<dynamic>> prefs) async {
+  Future<bool> savePreferences(UserPreferences prefs) async {
     try {} catch (e) {}
     await FirebaseFirestore.instance
         .collection(DatabaseCollections.userProfiles)
         .doc(FirebaseAuth.instance.currentUser.uid)
-        .update(prefs);
+        .update(prefs.convertToDocMap());
     return true;
   }
+
+  Map<String, List<dynamic>> mapPrefs(UserPreferences) => {};
 }
 
 class UserPreferences {
@@ -39,4 +49,18 @@ class UserPreferences {
 
   UserPreferences(
       {this.amenities, this.beverageGroups, this.establishmentTypes});
+
+  UserPreferences.empty() {
+    this.amenities = List<String>.empty();
+    this.establishmentTypes = List<String>.empty();
+    this.beverageGroups = List<String>.empty();
+  }
+
+  Map<String, List<dynamic>> convertToDocMap() {
+    return {
+      'amenities': this.amenities,
+      'establishment_types': this.establishmentTypes,
+      'beverage_groups': this.beverageGroups
+    };
+  }
 }
