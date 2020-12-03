@@ -34,27 +34,53 @@ class UserPreferencesModel extends BaseModel {
   //UserPreferences userPreferences;
 
   Future loadPageData() async {
-    setState(ViewState.Loading);
-    var prefs = await _userAccountService.getUserSettings();
+    try {
+      setState(ViewState.Loading);
+      var prefs = await _userAccountService.getUserSettings();
+      if (prefs == null) {
+        await _userAccountService.createEmptyPrefs();
+        prefs = UserPreferences.empty();
+      }
+      await Future.wait([
+        loadAmenities(prefs.amenities),
+        loadEstablishmentTypes(prefs.establishmentTypes),
+        loadBeverageGroups(prefs.beverageGroups)
+      ]);
+
+      setState(ViewState.Ready);
+      await trackEvent("User Preferences");
+    } catch (e) {
+      setState(ViewState.Error);
+    }
+  }
+
+  Future loadAmenities(List<String> prefs) async {
+    prefs = nullCheckPrefs(prefs);
     var _amenities = await _establishmentService.loadAmenitiesAsync();
+    amenities = _amenities
+        .map((e) => Selection(value: e.name, selected: prefs.contains(e.name)))
+        .toList();
+  }
+
+  Future loadEstablishmentTypes(List<String> prefs) async {
+    prefs = nullCheckPrefs(prefs);
     var establishmentTypes =
         await _establishmentService.loadEstablishmentTypesAsync();
-    var beverageGroups = await _beverageService.getBeverageGroupsAsync();
-    amenities = _amenities
-        .map((e) => Selection(
-            value: e.name, selected: prefs.amenities.contains(e.name)))
-        .toList();
     types = establishmentTypes
-        .map((e) => Selection(
-            value: e.name, selected: prefs.establishmentTypes.contains(e.name)))
+        .map((e) => Selection(value: e.name, selected: prefs.contains(e.name)))
         .toList();
-    groups = beverageGroups
-        .map((e) => Selection(
-            value: e.name, selected: prefs.beverageGroups.contains(e.name)))
-        .toList();
-    setState(ViewState.Ready);
-    await trackEvent("User Preferences");
   }
+
+  Future loadBeverageGroups(List<String> prefs) async {
+    prefs = nullCheckPrefs(prefs);
+    var beverageGroups = await _beverageService.getBeverageGroupsAsync();
+    groups = beverageGroups
+        .map((e) => Selection(value: e.name, selected: prefs.contains(e.name)))
+        .toList();
+  }
+
+  List<String> nullCheckPrefs(List<String> prefs) =>
+      prefs = prefs ?? List<String>.empty();
 
   Future<bool> savePreferences() async {
     try {
@@ -63,19 +89,22 @@ class UserPreferencesModel extends BaseModel {
       setState(ViewState.Ready);
       return result;
     } catch (e) {
-      var test = e;
+      setState(ViewState.Error);
+      return false;
     }
   }
 
-  Map<String, List<dynamic>> mapPrefs() => {
-        'amenities': this
-            .amenities
-            .where((am) => am.selected)
-            .map((e) => e.value)
-            .toList(),
-        'establishment_types':
-            this.types.where((am) => am.selected).map((e) => e.value).toList(),
-        'beverage_groups':
-            this.groups.where((am) => am.selected).map((e) => e.value).toList()
-      };
+  UserPreferences mapPrefs() {
+    var amenities =
+        this.amenities.where((am) => am.selected).map((e) => e.value).toList();
+    var est_types =
+        this.types.where((am) => am.selected).map((e) => e.value).toList();
+    var bev_groups =
+        this.groups.where((am) => am.selected).map((e) => e.value).toList();
+
+    return UserPreferences(
+        amenities: amenities,
+        establishmentTypes: est_types,
+        beverageGroups: bev_groups);
+  }
 }
