@@ -1,3 +1,4 @@
+import 'package:scoops/core/data/user/user_preferences.dart';
 import 'package:scoops/core/enums/view_state.dart';
 import 'package:scoops/core/infrastructure/app_locator.dart';
 import 'package:scoops/core/services/beverage_service.dart';
