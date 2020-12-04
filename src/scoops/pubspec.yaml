@@ -35,6 +35,8 @@ dependencies:
   cupertino_icons: ^1.0.0
   lottie: ^0.7.0
   flutter_appcenter_bundle: 3.2.0+2
+  package_info: 0.4.3+2
+  url_launcher: ^5.7.10
 
 dev_dependencies:
   dart_dot_reporter: 1.0.3

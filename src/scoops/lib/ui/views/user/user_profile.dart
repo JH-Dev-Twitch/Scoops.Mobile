@@ -44,7 +44,8 @@ class UserProfileView extends StatelessWidget {
                                 Icons.settings_rounded,
                                 Colors.blue[600],
                                 Colors.blue[50],
-                                null),
+                                () => Navigator.pushNamed(
+                                    context, Routes.AppSettings)),
                             buildActionButton(
                                 'Preferences',
                                 Icons.bookmark_border_rounded,
