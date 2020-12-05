@@ -1,9 +1,10 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:scoops/core/enums/view_state.dart';
 import 'package:scoops/core/viewModels/app_settings_model.dart';
 import 'package:scoops/ui/styling/app_style.dart';
 import 'package:scoops/ui/views/base_view.dart';
+import 'package:scoops/ui/widgets/common/icon_tile.dart';
 import 'package:scoops/ui/widgets/common/plain_app_bar.dart';
 
 class AppSettingsView extends StatefulWidget {
@@ -19,40 +20,116 @@ class _AppSettingsViewState extends State<AppSettingsView> {
     return BaseView<AppSettingsModel>(
       onModelReady: (model) async => await model.loadPageData(),
       builder: (context, model, child) => Scaffold(
-        appBar: PlainAppBar.buildAppBar(context, title: 'App Settings'),
-        body: SafeArea(
-            child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              GestureDetector(
-                  onLongPress: () => userConfirmation(
-                      context, () async => await model.rickRoll()),
-                  child: Row(
+        appBar: PlainAppBar.buildAppBar(context, title: 'Settings'),
+        body: SingleChildScrollView(
+          child: model.state == ViewState.Loading
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(child: CircularProgressIndicator()),
+                  ],
+                )
+              : SafeArea(
+                  child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Icon(
-                          Icons.info_rounded,
-                          color: AppStyles.primaryTheme.primaryColor,
-                        ),
-                      ),
-                      Text('App Version'),
-                      Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 50),
-                        child: Text(model.appVersion ?? "loading..."),
-                      ),
+                      // buildGroupHeader("App Theme"),
+                      // insertDividers(Row(
+                      //   children: [
+                      //     Text('Dark Mode'),
+                      //     Spacer(),
+                      //     Switch(
+                      //         value: model.darkModeEnabled ?? false,
+                      //         onChanged: (bool) => {}),
+                      //   ],
+                      // )),
+                      buildGroups(model.settingGroups)
                     ],
-                  ))
-            ],
-          ),
-        )),
+                  ),
+                )),
+        ),
       ),
     );
   }
+
+  Column buildGroups(List<AppSettingGroup> groups) {
+    var cols = new List<Column>();
+    for (var group in groups) {
+      var col = buildSettingGroup(group);
+      cols.add(col);
+    }
+    return Column(children: cols);
+  }
+
+  Column buildGroupSettings(List<AppSetting> properties) {
+    var items = new List<Widget>();
+    for (var setting in properties) {
+      if (setting.name == 'App Version') {
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: buildAppVersion(context, setting),
+        ));
+      } else if (setting.name == 'Dark Mode') {
+        items.add(buildDarkModeSwitch(setting));
+      } else {
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: IconTile(
+                  setting.icon,
+                  setting.iconColor,
+                  Colors.white,
+                ),
+              ),
+              Text(setting.name),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.only(right: 50),
+                child: Text(setting.value ?? "loading..."),
+              ),
+            ],
+          ),
+        ));
+      }
+    }
+    return Column(children: items);
+  }
+
+  Widget buildAppVersion(BuildContext context, AppSetting setting) {
+    return GestureDetector(
+        onLongPress: () =>
+            userConfirmation(context, () async => await setting.callback()),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: IconTile(Icons.info_outline_rounded,
+                  AppStyles.primaryTheme.primaryColor, Colors.white),
+            ),
+            Text(setting.name),
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(right: 50),
+              child: Text(setting.value ?? "loading..."),
+            ),
+          ],
+        ));
+  }
+
+  Column buildSettingGroup(AppSettingGroup group) => Column(
+        children: [
+          buildGroupHeader(group.groupName),
+          buildGroupSettings(group.settings)
+        ],
+      );
 
   Future<void> userConfirmation(BuildContext context, Function callback) async {
     return showDialog(
@@ -74,4 +151,34 @@ class _AppSettingsViewState extends State<AppSettingsView> {
               ],
             ));
   }
+
+  Widget buildGroupHeader(String groupName) => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          children: [
+            Text(
+              groupName,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      );
+
+  Widget buildDarkModeSwitch(AppSetting setting) => Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: IconTile(setting.icon, setting.iconColor, Colors.white),
+          ),
+          Text(setting.name),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(right: 40),
+            child: Switch(
+                value: setting.value == "true",
+                onChanged: (value) => setting.callback()),
+          ),
+        ],
+      );
 }

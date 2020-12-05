@@ -42,19 +42,19 @@ class UserProfileView extends StatelessWidget {
                             buildActionButton(
                                 'App Settings',
                                 Icons.settings_rounded,
-                                Colors.blue[600],
-                                Colors.blue[50],
+                                Colors.white,
+                                Colors.blue,
                                 () => Navigator.pushNamed(
                                     context, Routes.AppSettings)),
                             buildActionButton(
                                 'Preferences',
                                 Icons.bookmark_border_rounded,
-                                Colors.purple[600],
-                                Colors.purple[50],
+                                Colors.white,
+                                Colors.purple,
                                 () => Navigator.pushNamed(
                                     context, Routes.UserPreferences)),
                             buildActionButton('Ratings', Icons.star_rounded,
-                                Colors.yellow[600], Colors.yellow[50], null),
+                                Colors.white, Colors.green, null),
                             Spacer(),
                             buildActionButton('Sign Out', Icons.logout,
                                 Colors.red, Colors.red[100], () async {
@@ -119,7 +119,7 @@ class UserProfileView extends StatelessWidget {
                   icon,
                   color: iconColor,
                 ),
-                padding: EdgeInsets.all(15),
+                padding: EdgeInsets.all(10),
               ),
               Center(
                   child: Text(

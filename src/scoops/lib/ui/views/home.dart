@@ -42,10 +42,6 @@ class _ScoopsHomePageState extends State<ScoopsHomePage> {
                             children: [
                               Column(
                                 children: [
-                                  // ChipFilter(
-                                  //   filters: model.establishmentTypes,
-                                  //   tapped: model.tapped,
-                                  // ),
                                   SizedBox(
                                     height: 120,
                                     child: new ListView.separated(
