@@ -17,7 +17,7 @@ class AppSettingsModel extends BaseModel {
   Future loadPageData() async {
     setState(ViewState.Loading);
     settingGroups = new List<AppSettingGroup>();
-    Future.wait([loadGeneralSettings(), loadAppInfo()]);
+    await Future.wait([loadGeneralSettings(), loadAppInfo()]);
     setState(ViewState.Ready);
   }
 
