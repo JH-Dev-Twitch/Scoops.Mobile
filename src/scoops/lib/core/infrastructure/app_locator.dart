@@ -4,6 +4,7 @@ import 'package:scoops/core/services/authentication_service.dart';
 import 'package:scoops/core/services/beverage_service.dart';
 import 'package:scoops/core/services/establishment_service.dart';
 import 'package:scoops/core/services/location_service.dart';
+import 'package:scoops/core/services/oss_contributions_service.dart';
 import 'package:scoops/core/services/user_account_service.dart';
 import 'package:scoops/core/viewModels/app_settings_model.dart';
 import 'package:scoops/core/viewModels/login_model.dart';
@@ -21,6 +22,7 @@ void initializeServiceLocator() {
   locator.registerLazySingleton(() => EstablishmentService());
   locator.registerLazySingleton(() => LocationService());
   locator.registerLazySingleton(() => UserAccountService());
+  locator.registerLazySingleton(() => OSSContributionsService());
   locator.registerLazySingleton(() => LoggingService());
   locator.registerFactory(() => LoginModel());
   locator.registerFactory(() => ScoopsHomeModel());

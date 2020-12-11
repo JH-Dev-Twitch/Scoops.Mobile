@@ -4,14 +4,9 @@ import 'package:scoops/ui/models/Selection.dart';
 import 'package:scoops/ui/styling/app_style.dart';
 import 'package:scoops/ui/views/base_view.dart';
 
-class SearchView extends StatefulWidget {
+class SearchView extends StatelessWidget {
   SearchView({Key key}) : super(key: key);
 
-  @override
-  _SearchViewState createState() => _SearchViewState();
-}
-
-class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<SearchModel>(

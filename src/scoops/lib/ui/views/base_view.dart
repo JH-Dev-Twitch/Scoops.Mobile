@@ -6,9 +6,10 @@ import 'package:scoops/core/viewModels/base_model.dart';
 class BaseView<T extends BaseModel> extends StatefulWidget {
   final Widget Function(BuildContext context, T model, Widget child) builder;
   final Function(T) onModelReady;
+  final Function(T) onDispose;
   final Widget child;
 
-  BaseView({this.builder, this.onModelReady, this.child});
+  BaseView({this.builder, this.onModelReady, this.onDispose, this.child});
 
   @override
   _BaseViewState createState() => _BaseViewState<T>();
@@ -30,5 +31,13 @@ class _BaseViewState<T extends BaseModel> extends State<BaseView<T>> {
     return ChangeNotifierProvider<T>(
         create: (context) => model,
         child: Consumer<T>(builder: widget.builder, child: widget.child));
+  }
+
+  @override
+  void dispose() {
+    if (widget.onDispose != null) {
+      widget.onDispose(model);
+    }
+    super.dispose();
   }
 }

@@ -8,14 +8,9 @@ import 'package:scoops/ui/views/base_view.dart';
 import 'package:scoops/ui/widgets/common/icon_tile.dart';
 import 'package:scoops/ui/widgets/common/plain_app_bar.dart';
 
-class AppSettingsView extends StatefulWidget {
+class AppSettingsView extends StatelessWidget {
   AppSettingsView({Key key}) : super(key: key);
 
-  @override
-  _AppSettingsViewState createState() => _AppSettingsViewState();
-}
-
-class _AppSettingsViewState extends State<AppSettingsView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<AppSettingsModel>(
