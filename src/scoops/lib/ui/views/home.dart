@@ -9,14 +9,9 @@ import 'package:scoops/ui/widgets/common/actionsWidget.dart';
 import 'package:scoops/ui/widgets/common/locationWidget.dart';
 import 'package:scoops/ui/widgets/establishment/establishmentCardWidget.dart';
 
-class ScoopsHomePage extends StatefulWidget {
+class ScoopsHomePage extends StatelessWidget {
   ScoopsHomePage({Key key}) : super(key: key);
 
-  @override
-  _ScoopsHomePageState createState() => _ScoopsHomePageState();
-}
-
-class _ScoopsHomePageState extends State<ScoopsHomePage> {
   @override
   Widget build(BuildContext context) {
     return BaseView<ScoopsHomeModel>(
@@ -42,10 +37,6 @@ class _ScoopsHomePageState extends State<ScoopsHomePage> {
                             children: [
                               Column(
                                 children: [
-                                  // ChipFilter(
-                                  //   filters: model.establishmentTypes,
-                                  //   tapped: model.tapped,
-                                  // ),
                                   SizedBox(
                                     height: 120,
                                     child: new ListView.separated(

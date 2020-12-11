@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scoops/core/data/models/user.dart';
 import 'package:scoops/core/infrastructure/routing/routes.dart';
-import 'package:scoops/core/viewModels/user_profile_model.dart';
+import 'package:scoops/core/viewModels/user/user_profile_model.dart';
 import 'package:scoops/ui/styling/app_style.dart';
 import 'package:scoops/ui/views/base_view.dart';
 import 'package:scoops/ui/views/login/login.dart';
@@ -42,18 +42,19 @@ class UserProfileView extends StatelessWidget {
                             buildActionButton(
                                 'App Settings',
                                 Icons.settings_rounded,
-                                Colors.blue[600],
-                                Colors.blue[50],
-                                null),
+                                Colors.white,
+                                Colors.blue,
+                                () => Navigator.pushNamed(
+                                    context, Routes.AppSettings)),
                             buildActionButton(
                                 'Preferences',
                                 Icons.bookmark_border_rounded,
-                                Colors.purple[600],
-                                Colors.purple[50],
+                                Colors.white,
+                                Colors.purple,
                                 () => Navigator.pushNamed(
                                     context, Routes.UserPreferences)),
                             buildActionButton('Ratings', Icons.star_rounded,
-                                Colors.yellow[600], Colors.yellow[50], null),
+                                Colors.white, Colors.green, null),
                             Spacer(),
                             buildActionButton('Sign Out', Icons.logout,
                                 Colors.red, Colors.red[100], () async {
@@ -118,7 +119,7 @@ class UserProfileView extends StatelessWidget {
                   icon,
                   color: iconColor,
                 ),
-                padding: EdgeInsets.all(15),
+                padding: EdgeInsets.all(10),
               ),
               Center(
                   child: Text(

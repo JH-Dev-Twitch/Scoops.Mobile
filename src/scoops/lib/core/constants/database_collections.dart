@@ -4,4 +4,5 @@ class DatabaseCollections {
   static const establishments = 'establishments';
   static const amenities = 'amenities';
   static const userProfiles = 'user_profiles';
+  static const ossContribs = 'oss_contributions';
 }

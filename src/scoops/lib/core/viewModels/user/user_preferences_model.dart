@@ -1,3 +1,4 @@
+import 'package:scoops/core/data/user/user_preferences.dart';
 import 'package:scoops/core/enums/view_state.dart';
 import 'package:scoops/core/infrastructure/app_locator.dart';
 import 'package:scoops/core/services/beverage_service.dart';
@@ -97,14 +98,14 @@ class UserPreferencesModel extends BaseModel {
   UserPreferences mapPrefs() {
     var amenities =
         this.amenities.where((am) => am.selected).map((e) => e.value).toList();
-    var est_types =
+    var estTypes =
         this.types.where((am) => am.selected).map((e) => e.value).toList();
-    var bev_groups =
+    var bevGroups =
         this.groups.where((am) => am.selected).map((e) => e.value).toList();
 
-    return UserPreferences(
+    return UserPreferences.populate(
         amenities: amenities,
-        establishmentTypes: est_types,
-        beverageGroups: bev_groups);
+        establishmentTypes: estTypes,
+        beverageGroups: bevGroups);
   }
 }

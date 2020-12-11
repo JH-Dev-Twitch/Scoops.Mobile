@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scoops/core/enums/view_state.dart';
-import 'package:scoops/core/viewModels/user_preferences_model.dart';
+import 'package:scoops/core/viewModels/user/user_preferences_model.dart';
 import 'package:scoops/ui/models/Selection.dart';
 import 'package:scoops/ui/styling/app_style.dart';
 import 'package:scoops/ui/views/base_view.dart';
