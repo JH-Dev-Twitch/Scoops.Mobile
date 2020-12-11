@@ -98,14 +98,14 @@ class UserPreferencesModel extends BaseModel {
   UserPreferences mapPrefs() {
     var amenities =
         this.amenities.where((am) => am.selected).map((e) => e.value).toList();
-    var est_types =
+    var estTypes =
         this.types.where((am) => am.selected).map((e) => e.value).toList();
-    var bev_groups =
+    var bevGroups =
         this.groups.where((am) => am.selected).map((e) => e.value).toList();
 
-    return UserPreferences(
+    return UserPreferences.populate(
         amenities: amenities,
-        establishmentTypes: est_types,
-        beverageGroups: bev_groups);
+        establishmentTypes: estTypes,
+        beverageGroups: bevGroups);
   }
 }

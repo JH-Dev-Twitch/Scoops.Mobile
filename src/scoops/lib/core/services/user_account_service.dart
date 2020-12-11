@@ -9,7 +9,7 @@ class UserAccountService {
         .collection(DatabaseCollections.userProfiles)
         .doc(FirebaseAuth.instance.currentUser.uid)
         .get();
-    return doc.exists ? UserPreferences.mapFromDoc(doc) : null;
+    return doc.exists ? UserPreferences().mapFromDoc(doc) : null;
   }
 
   Future createEmptyPrefs() async {

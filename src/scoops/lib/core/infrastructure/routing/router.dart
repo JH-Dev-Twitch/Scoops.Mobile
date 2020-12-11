@@ -6,6 +6,7 @@ import 'package:scoops/ui/views/home.dart';
 import 'package:scoops/ui/views/login/login.dart';
 import 'package:scoops/ui/views/search/search.dart';
 import 'package:scoops/ui/views/settings/app_settings.dart';
+import 'package:scoops/ui/views/settings/oss_contributions.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -24,6 +25,9 @@ class AppRouter {
 
       case Routes.AppSettings:
         return MaterialPageRoute(builder: (_) => AppSettingsView());
+
+      case Routes.OSSContributions:
+        return MaterialPageRoute(builder: (_) => OSSContributionsView());
 
       default:
         return MaterialPageRoute(

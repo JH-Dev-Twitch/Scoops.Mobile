@@ -7,6 +7,7 @@ import 'package:scoops/core/services/location_service.dart';
 import 'package:scoops/core/services/user_account_service.dart';
 import 'package:scoops/core/viewModels/app_settings_model.dart';
 import 'package:scoops/core/viewModels/login_model.dart';
+import 'package:scoops/core/viewModels/oss_contibutions_model.dart';
 import 'package:scoops/core/viewModels/scoops_home_model.dart';
 import 'package:scoops/core/viewModels/search_model.dart';
 import 'package:scoops/core/viewModels/user_preferences_model.dart';
@@ -27,4 +28,5 @@ void initializeServiceLocator() {
   locator.registerFactory(() => SearchModel());
   locator.registerFactory(() => UserPreferencesModel());
   locator.registerFactory(() => AppSettingsModel());
+  locator.registerFactory(() => OSSContributionsModel());
 }

@@ -26,10 +26,13 @@ class AppSettingsModel extends BaseModel {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     group.settings.add(AppSetting(
         "App Version",
-        "${packageInfo.version}.${packageInfo.buildNumber}",
+        "v${packageInfo.version}.${packageInfo.buildNumber}",
         Icons.info_outline_rounded,
         Colors.blue,
         rickRoll));
+
+    group.settings.add(AppSetting(
+        "OSS Contributions", "", Icons.code_rounded, Colors.indigo, null));
     settingGroups.add(group);
   }
 

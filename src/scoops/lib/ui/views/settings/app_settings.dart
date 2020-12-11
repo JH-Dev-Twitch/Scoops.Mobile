@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scoops/core/enums/view_state.dart';
+import 'package:scoops/core/infrastructure/routing/routes.dart';
 import 'package:scoops/core/viewModels/app_settings_model.dart';
 import 'package:scoops/ui/styling/app_style.dart';
 import 'package:scoops/ui/views/base_view.dart';
@@ -35,19 +36,7 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // buildGroupHeader("App Theme"),
-                      // insertDividers(Row(
-                      //   children: [
-                      //     Text('Dark Mode'),
-                      //     Spacer(),
-                      //     Switch(
-                      //         value: model.darkModeEnabled ?? false,
-                      //         onChanged: (bool) => {}),
-                      //   ],
-                      // )),
-                      buildGroups(model.settingGroups)
-                    ],
+                    children: [buildGroups(context, model.settingGroups)],
                   ),
                 )),
         ),
@@ -55,48 +44,61 @@ class _AppSettingsViewState extends State<AppSettingsView> {
     );
   }
 
-  Column buildGroups(List<AppSettingGroup> groups) {
+  Column buildGroups(BuildContext context, List<AppSettingGroup> groups) {
     var cols = new List<Column>();
     for (var group in groups) {
-      var col = buildSettingGroup(group);
+      var col = buildSettingGroup(context, group);
       cols.add(col);
     }
     return Column(children: cols);
   }
 
-  Column buildGroupSettings(List<AppSetting> properties) {
+  Column buildGroupSettings(BuildContext context, List<AppSetting> properties) {
     var items = new List<Widget>();
     for (var setting in properties) {
-      if (setting.name == 'App Version') {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: buildAppVersion(context, setting),
-        ));
-      } else if (setting.name == 'Dark Mode') {
-        items.add(buildDarkModeSwitch(setting));
-      } else {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: IconTile(
-                  setting.icon,
-                  setting.iconColor,
-                  Colors.white,
+      switch (setting.name) {
+        case 'App Version':
+          {
+            items.add(Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: buildAppVersion(context, setting),
+            ));
+            break;
+          }
+        case 'Dark Mode':
+          {
+            items.add(buildDarkModeSwitch(setting));
+            break;
+          }
+        case 'OSS Contributions':
+          {
+            items.add(buildOSSSection(context, setting));
+            break;
+          }
+        default:
+          items.add(Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: IconTile(
+                    setting.icon,
+                    setting.iconColor,
+                    Colors.white,
+                  ),
                 ),
-              ),
-              Text(setting.name),
-              Spacer(),
-              Padding(
-                padding: const EdgeInsets.only(right: 50),
-                child: Text(setting.value ?? "loading..."),
-              ),
-            ],
-          ),
-        ));
+                Text(setting.name),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 50),
+                  child: Text(setting.value ?? "loading..."),
+                ),
+              ],
+            ),
+          ));
+          break;
       }
     }
     return Column(children: items);
@@ -116,18 +118,16 @@ class _AppSettingsViewState extends State<AppSettingsView> {
             ),
             Text(setting.name),
             Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(right: 50),
-              child: Text(setting.value ?? "loading..."),
-            ),
+            Text(setting.value ?? "loading..."),
           ],
         ));
   }
 
-  Column buildSettingGroup(AppSettingGroup group) => Column(
+  Column buildSettingGroup(BuildContext context, AppSettingGroup group) =>
+      Column(
         children: [
           buildGroupHeader(group.groupName),
-          buildGroupSettings(group.settings)
+          buildGroupSettings(context, group.settings)
         ],
       );
 
@@ -173,12 +173,29 @@ class _AppSettingsViewState extends State<AppSettingsView> {
           ),
           Text(setting.name),
           Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(right: 40),
-            child: Switch(
-                value: setting.value == "true",
-                onChanged: (value) => setting.callback()),
-          ),
+          Switch(
+              value: setting.value == "true",
+              onChanged: (value) => setting.callback()),
         ],
+      );
+
+  Widget buildOSSSection(BuildContext context, AppSetting setting) =>
+      GestureDetector(
+        onTap: () => Navigator.pushNamed(context, Routes.OSSContributions),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: IconTile(setting.icon, setting.iconColor, Colors.white),
+            ),
+            Text(setting.name),
+            Spacer(),
+            Icon(
+              Icons.chevron_right_rounded,
+              color: Colors.black,
+            ),
+          ],
+        ),
       );
 }
