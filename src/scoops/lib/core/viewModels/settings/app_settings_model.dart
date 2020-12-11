@@ -17,23 +17,17 @@ class AppSettingsModel extends BaseModel {
   Future loadPageData() async {
     setState(ViewState.Loading);
     settingGroups = new List<AppSettingGroup>();
-    await loadGeneralSettings();
-    await loadAppInfo();
-
+    Future.wait([loadGeneralSettings(), loadAppInfo()]);
     setState(ViewState.Ready);
   }
 
   Future loadAppInfo() async {
     var group = new AppSettingGroup();
-
+    group.groupName = "App Information";
     group.settings.add(NavigationSetting("OSS Contributions",
         Routes.OSSContributions, Icons.code_rounded, Colors.indigo));
-    settingGroups.add(group);
-
     group.settings.add(NavigationSetting(
         "Dev Team", "dev_team", Icons.group_rounded, Colors.green));
-
-    group.groupName = "App Information";
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     group.settings.add(DisplaySetting(
       "App Version",
@@ -41,6 +35,7 @@ class AppSettingsModel extends BaseModel {
       Icons.info_outline_rounded,
       Colors.blue,
     ));
+    settingGroups.add(group);
   }
 
   Future rickRoll() async =>
