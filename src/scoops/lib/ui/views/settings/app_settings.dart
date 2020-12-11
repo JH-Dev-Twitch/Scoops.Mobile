@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scoops/core/enums/view_state.dart';
 import 'package:scoops/core/infrastructure/routing/routes.dart';
-import 'package:scoops/core/viewModels/app_settings_model.dart';
-import 'package:scoops/ui/styling/app_style.dart';
+import 'package:scoops/core/viewModels/settings/app_settings_model.dart';
+import 'package:scoops/ui/models/settings/app_settings.dart';
+import 'package:scoops/ui/models/settings/app_settings_group.dart';
+import 'package:scoops/ui/models/settings/display_setting.dart';
+import 'package:scoops/ui/models/settings/navigation_setting.dart';
+import 'package:scoops/ui/models/settings/toggle_setting.dart';
 import 'package:scoops/ui/views/base_view.dart';
 import 'package:scoops/ui/widgets/common/icon_tile.dart';
 import 'package:scoops/ui/widgets/common/plain_app_bar.dart';
@@ -51,71 +55,48 @@ class AppSettingsView extends StatelessWidget {
   Column buildGroupSettings(BuildContext context, List<AppSetting> properties) {
     var items = new List<Widget>();
     for (var setting in properties) {
-      switch (setting.name) {
-        case 'App Version':
+      Widget child;
+      switch (setting.runtimeType) {
+        case ToggleSetting:
           {
-            items.add(Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: buildAppVersion(context, setting),
-            ));
+            child = buildToggleSetting(setting);
             break;
           }
-        case 'Dark Mode':
+        case NavigationSetting:
           {
-            items.add(buildDarkModeSwitch(setting));
-            break;
-          }
-        case 'OSS Contributions':
-          {
-            items.add(buildOSSSection(context, setting));
+            child = buildNavigationSetting(context, setting);
             break;
           }
         default:
-          items.add(Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: IconTile(
-                    setting.icon,
-                    setting.iconColor,
-                    Colors.white,
-                  ),
-                ),
-                Text(setting.name),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 50),
-                  child: Text(setting.value ?? "loading..."),
-                ),
-              ],
-            ),
-          ));
+          child = buildBasicSetting(context, setting);
           break;
       }
+      items.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: child,
+      ));
     }
     return Column(children: items);
   }
 
-  Widget buildAppVersion(BuildContext context, AppSetting setting) {
-    return GestureDetector(
-        onLongPress: () =>
-            userConfirmation(context, () async => await setting.callback()),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: IconTile(Icons.info_outline_rounded,
-                  AppStyles.primaryTheme.primaryColor, Colors.white),
-            ),
-            Text(setting.name),
-            Spacer(),
-            Text(setting.value ?? "loading..."),
-          ],
-        ));
+  Widget buildBasicSetting(BuildContext context, DisplaySetting setting) {
+    var child = Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: Text(setting.value ?? "loading..."));
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        buildSettingIconAndLabel(setting),
+        Spacer(),
+        setting.name == 'App Version'
+            ? GestureDetector(
+                onLongPress: () => userConfirmation(
+                    context, () async => await setting.onPress()),
+                child: child,
+              )
+            : child
+      ],
+    );
   }
 
   Column buildSettingGroup(BuildContext context, AppSettingGroup group) =>
@@ -123,6 +104,18 @@ class AppSettingsView extends StatelessWidget {
         children: [
           buildGroupHeader(group.groupName),
           buildGroupSettings(context, group.settings)
+        ],
+      );
+
+  Row buildSettingIconAndLabel(AppSetting setting) => Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: IconTile(setting.icon, setting.iconColor, Colors.white,
+                iconSize: 18),
+          ),
+          Text(setting.name),
         ],
       );
 
@@ -141,7 +134,7 @@ class AppSettingsView extends StatelessWidget {
                   },
                 ),
                 TextButton(
-                    child: Text("My word is Iron"),
+                    child: Text("Give me God mode"),
                     onPressed: () async => await callback())
               ],
             ));
@@ -159,32 +152,23 @@ class AppSettingsView extends StatelessWidget {
         ),
       );
 
-  Widget buildDarkModeSwitch(AppSetting setting) => Row(
+  Widget buildToggleSetting(ToggleSetting setting) => Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: IconTile(setting.icon, setting.iconColor, Colors.white),
-          ),
-          Text(setting.name),
+          buildSettingIconAndLabel(setting),
           Spacer(),
-          Switch(
-              value: setting.value == "true",
-              onChanged: (value) => setting.callback()),
+          Switch(value: setting.value == true, onChanged: setting.onchange),
         ],
       );
 
-  Widget buildOSSSection(BuildContext context, AppSetting setting) =>
+  Widget buildNavigationSetting(
+          BuildContext context, NavigationSetting setting) =>
       GestureDetector(
-        onTap: () => Navigator.pushNamed(context, Routes.OSSContributions),
+        onTap: () => Navigator.pushNamed(context, setting.route),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: IconTile(setting.icon, setting.iconColor, Colors.white),
-            ),
-            Text(setting.name),
+            buildSettingIconAndLabel(setting),
             Spacer(),
             Icon(
               Icons.chevron_right_rounded,

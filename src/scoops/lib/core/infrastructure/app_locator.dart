@@ -6,13 +6,13 @@ import 'package:scoops/core/services/establishment_service.dart';
 import 'package:scoops/core/services/location_service.dart';
 import 'package:scoops/core/services/oss_contributions_service.dart';
 import 'package:scoops/core/services/user_account_service.dart';
-import 'package:scoops/core/viewModels/app_settings_model.dart';
+import 'package:scoops/core/viewModels/settings/app_settings_model.dart';
 import 'package:scoops/core/viewModels/login_model.dart';
-import 'package:scoops/core/viewModels/oss_contibutions_model.dart';
+import 'package:scoops/core/viewModels/settings/oss_contibutions_model.dart';
 import 'package:scoops/core/viewModels/scoops_home_model.dart';
 import 'package:scoops/core/viewModels/search_model.dart';
-import 'package:scoops/core/viewModels/user_preferences_model.dart';
-import 'package:scoops/core/viewModels/user_profile_model.dart';
+import 'package:scoops/core/viewModels/user/user_preferences_model.dart';
+import 'package:scoops/core/viewModels/user/user_profile_model.dart';
 
 GetIt locator = GetIt.instance;
 

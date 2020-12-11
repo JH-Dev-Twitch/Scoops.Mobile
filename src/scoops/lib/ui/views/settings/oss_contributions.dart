@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scoops/core/data/models/oss_contribution.dart';
-import 'package:scoops/core/viewModels/oss_contibutions_model.dart';
+import 'package:scoops/core/viewModels/settings/oss_contibutions_model.dart';
 import 'package:scoops/ui/styling/custom_icons_icons.dart';
 import 'package:scoops/ui/views/base_view.dart';
 import 'package:scoops/ui/widgets/common/icon_tile.dart';

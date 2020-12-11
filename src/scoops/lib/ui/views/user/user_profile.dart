@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scoops/core/data/models/user.dart';
 import 'package:scoops/core/infrastructure/routing/routes.dart';
-import 'package:scoops/core/viewModels/user_profile_model.dart';
+import 'package:scoops/core/viewModels/user/user_profile_model.dart';
 import 'package:scoops/ui/styling/app_style.dart';
 import 'package:scoops/ui/views/base_view.dart';
 import 'package:scoops/ui/views/login/login.dart';

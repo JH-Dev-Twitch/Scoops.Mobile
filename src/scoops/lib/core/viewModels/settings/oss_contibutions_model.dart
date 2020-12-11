@@ -22,7 +22,10 @@ class OSSContributionsModel extends BaseModel {
     setState(ViewState.Ready);
   }
 
-  void dispose() => _contributionsController.close();
+  void dispose() {
+    _contributionsController.close();
+    super.dispose();
+  }
 
   Future openLink(String link) async => await launch(link);
 }
