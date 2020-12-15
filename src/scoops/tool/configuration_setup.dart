@@ -1,6 +1,6 @@
-import 'package:scoops/core/infrastructure/configuration/app_config_job.dart';
+import 'app_config_builder.dart';
 
 Future<void> main() async {
-  await ConfigurationJob(outputDir: "lib/core/infrastructure/configuration")
+  await AppConfigBuilder(outputDir: "lib/core/infrastructure/configuration")
       .buildConfig();
 }

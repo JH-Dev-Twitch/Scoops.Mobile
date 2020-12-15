@@ -184,6 +184,7 @@ class ScoopsHomePage extends StatelessWidget {
       case "Restaraunt":
         return Icons.restaurant_rounded;
       default:
+        return Icons.local_drink_rounded;
     }
   }
 
@@ -202,6 +203,7 @@ class ScoopsHomePage extends StatelessWidget {
       case "Restaraunt":
         return Colors.redAccent;
       default:
+        return Colors.blueAccent;
     }
   }
 }
