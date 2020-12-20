@@ -40,7 +40,7 @@ class ActionsWidget extends StatelessWidget {
           size: 25,
           color: Colors.white,
         ),
-      )
+      ),
     ]);
   }
 }

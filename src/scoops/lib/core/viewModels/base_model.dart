@@ -6,6 +6,7 @@ import 'package:scoops/core/infrastructure/logging/logging_service.dart';
 class BaseModel extends ChangeNotifier {
   final _loggingService = locator<LoggingService>();
   ViewState _state = ViewState.Ready;
+  String errorMessage = "There was an error";
 
   ViewState get state => _state;
 
@@ -18,6 +19,13 @@ class BaseModel extends ChangeNotifier {
     _state = state;
     notifyListeners();
   }
+
+  void setErrorState({String message = "There was an error"}) {
+    errorMessage = message;
+    setState(ViewState.Error);
+  }
+
+  void fakeError(String message) => setErrorState();
 
   Future trackEvent(String event) async =>
       _loggingService.trackEventAsync(event);
