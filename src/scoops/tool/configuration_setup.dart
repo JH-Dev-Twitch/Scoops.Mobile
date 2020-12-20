@@ -1,8 +1,6 @@
 import 'app_config_builder.dart';
 
 Future<void> main() async {
-  await AppConfigBuilder(
-          outputDir: "lib/core/infrastructure/configuration",
-          envVariable: "GOOGLE_JSON")
+  await AppConfigBuilder(outputDir: "lib/core/infrastructure/configuration")
       .buildConfig();
 }
