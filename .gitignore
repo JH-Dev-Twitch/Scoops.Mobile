@@ -20,3 +20,5 @@ doc/api/
 *.js.deps
 *.js.map
 *google-services.json
+*config.json
+*app_config.dart

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scoops/core/enums/view_state.dart';
-import 'package:scoops/core/infrastructure/routing/routes.dart';
 import 'package:scoops/core/viewModels/settings/app_settings_model.dart';
 import 'package:scoops/ui/models/settings/app_settings.dart';
 import 'package:scoops/ui/models/settings/app_settings_group.dart';

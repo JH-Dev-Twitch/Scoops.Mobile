@@ -4,10 +4,10 @@ class IconTile extends StatelessWidget {
   IconTile(this.icon, this.backgroundColor, this.iconColor,
       {this.iconSize = 15});
 
-  IconData icon;
-  Color iconColor;
-  Color backgroundColor;
-  double iconSize;
+  final IconData icon;
+  final Color iconColor;
+  final Color backgroundColor;
+  final double iconSize;
   @override
   Widget build(BuildContext context) {
     return Container(
