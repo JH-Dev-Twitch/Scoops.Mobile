@@ -17,9 +17,11 @@ class AppConfigBuilder {
   Future buildConfig() async {
     String data = await readConfigData();
     if (data == null) throw new Exception("No Config Data found");
-    data.replaceAll('\"', '"');
+    String formattedData = data.replaceAll(r'\"', '"');
     var builder = new ConfigClassBuilder(configClassName, true);
-    Map fields = json.decode(data);
+    Map fields = json.decode(
+      formattedData,
+    );
     builder.importFields(fields);
     var classData = builder.buildClass();
     var fileName = builder.generateFileNameForClass();
