@@ -21,11 +21,16 @@ class ScoopsHomeModel extends BaseModel {
 
   //methods
   Future loadData() async {
-    setState(ViewState.Loading);
-    this.beverageGroups = await _service.getBeverageGroupsAsync();
-    locationName = await _locationService.getLocation();
-    await loadEstablishmentDataAsync();
-    setState(ViewState.Ready);
+    try {
+      setState(ViewState.Loading);
+      this.beverageGroups = await _service.getBeverageGroupsAsync();
+      locationName = await _locationService.getLocation();
+      await loadEstablishmentDataAsync();
+      setState(ViewState.Ready);
+    } catch (e) {
+      var exception = e as Exception;
+      setErrorState(message: exception.toString());
+    }
   }
 
   Future loadEstablishmentDataAsync() async {
